@@ -1,15 +1,17 @@
-const apri_url = "https://networkcalc.com/api/ip/{subnet}"
+const IpC = {
+    data() {
+        return {
+            ip : "",
+            data: {}
 
-async   function getUser() {
+        }
+    },
+    methods: {
+        getUser() {
+            this.ip = document.getElementById('getIp').value
+            fetch("https://networkcalc.com/api/ip/192.168.1.1/24").then((response)=> response.json()).then((data)=>this.data = data.address);
+        }
 
-    const response = await fetch(apri_url);
-    const data = await response.json();
-    console.log(data.results);
-
-    const user = data.results[0];
-    let {subnet_mask, subnet_bits, wildcard_mask} = user.mask;
-    let {network_address, broadcast_address} = user.address;
-    let {assignable_host, first_assignable_host,last_assignable_host} = user.host
-    
-    document.getElementById("getIp") 
-}
+    },
+};
+Vue.createApp(IpC).mount('.container');
