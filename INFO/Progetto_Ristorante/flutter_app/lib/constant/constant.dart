@@ -1,0 +1,2 @@
+  String totalOrder = '';
+  var orderForResp = '';
