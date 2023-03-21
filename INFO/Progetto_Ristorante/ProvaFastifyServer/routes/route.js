@@ -3,19 +3,19 @@ const {schema} = require('./schemaMenu')
 const {schema2} = require('./schemaOrder')
 async function poolRoutes (fastify, options) {
 
-    fastify.get('/getStarter', {schema: schema},async (request, reply) => {
+    fastify.get('/getAntipasti', {schema: schema},async (request, reply) => {
         const res =await pool.query('SELECT * FROM starter')
         reply.send(res.rows)
         
     })
 
-    fastify.get('/getFirst',{schema: schema}, async (request, reply) => {
+    fastify.get('/getPrimi',{schema: schema}, async (request, reply) => {
         const res =await pool.query('SELECT * FROM first')
         reply.send(res.rows)
         
     })
 
-    fastify.get('/getSecond', {schema: schema},async (request, reply) => {
+    fastify.get('/getSecondi', {schema: schema},async (request, reply) => {
         const res =await pool.query('SELECT * FROM second')
         reply.send(res.rows)
         
@@ -26,7 +26,7 @@ async function poolRoutes (fastify, options) {
         reply.send(res.rows)
         
     })
-    fastify.get('/getDrink', {schema: schema},async (request, reply) => {
+    fastify.get('/geBevande', {schema: schema},async (request, reply) => {
         const res =await pool.query('SELECT * FROM drink')
         reply.send(res.rows)
         

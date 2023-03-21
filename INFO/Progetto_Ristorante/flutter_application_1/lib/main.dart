@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -23,8 +22,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  Future<List<Order>> futureOrders = getOrder();
+class MyHomePage extends StatefulWidget {
 
   static Future<List<Order>> getOrder() async {
     const url = 'http://10.0.2.2:4000/getRisposta';
@@ -33,6 +31,13 @@ class MyHomePage extends StatelessWidget {
     final body = json.decode(response.body);
     return body.map<Order>(Order.fromJson).toList();
   }
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  Future<List<Order>> futureOrders = MyHomePage.getOrder();
 
   @override
   Widget build(BuildContext context) => Scaffold(

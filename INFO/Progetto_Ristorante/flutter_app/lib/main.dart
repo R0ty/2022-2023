@@ -1,170 +1,96 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/views/view.dart';
+import 'package:flutter_app/views/antipasti.dart';
+import 'package:flutter_app/views/navigationDrawer.dart';
+import 'constant/constant.dart';
 
 void main() => runApp(HomePage());
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Home(),
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: Home());
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int dropdownvalue = list.first;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawer(),
-      backgroundColor: Color.fromARGB(255, 37, 40, 80),
-      appBar: AppBar(
-        title: Stack(
-          children: <Widget>[
-            // Stroked text as border.
-            Text(
-              'Home',
-              style: TextStyle(
-                fontSize: 40,
-                fontStyle: FontStyle.italic,
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 6
-                  ..color = Colors.pink.shade300,
-              ),
-            ),
-            // Solid text as fill.
-            Text(
-              'Home',
-              style: TextStyle(
-                fontSize: 40,
-                color: Colors.white,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ],
-        ),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 37, 40, 80),
-      ),
       body: Center(
-        child: Column(
-            children: [
-              Image.asset('assets/logo.png'), // <-- SEE HERE
-               ]
-          
-        ),
-      ),
-    );
-  }
-}
-
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => Drawer(
-        backgroundColor: Color.fromARGB(255, 61, 60, 60),
-        child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              buildHeader(context),
-              buildMenuItems(context),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Numero Tavolo  ',
+                style: TextStyle(fontSize: 20),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              SizedBox(
+                width: 100,
+                child: DropdownButtonFormField<int>(
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(width: 2, color: Colors.blueAccent),
+                  )),
+                  icon: const Icon(
+                    Icons.arrow_downward,
+                    size: 20,
+                  ),
+                  value: dropdownvalue,
+                  elevation: 16,
+                  style:
+                      const TextStyle(color: Colors.blueAccent, fontSize: 30),
+                  onChanged: (int? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      dropdownvalue = value!;
+                      tavolo = value;
+                      print(tavolo);
+                    });
+                  },
+                  items: list
+                      .map((item) => DropdownMenuItem<int>(
+                            value: item,
+                            child: Text('$item'),
+                          ))
+                      .toList(),
+                ),
+              ),
             ],
           ),
-        ),
-      );
-
-  Widget buildHeader(BuildContext context) => Container(
-        padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top,
-        ),
-      );
-
-  Widget buildMenuItems(BuildContext context) => Container(
-        padding: const EdgeInsets.all(24),
-        child: Wrap(
-          runSpacing: 16,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.food_bank),
-              title: Text(
-                'Home',
-                style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-              ),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => HomePage(),
-              )),
-            ),
-            ListTile(
-                leading: const Icon(Icons.keyboard_arrow_right_sharp),
-                title: Text(
-                  'Starter',
-                  style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-                ),
-                onTap: () async {
-                  await Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Starter(),
-                  ));
-                }),
-            ListTile(
-              leading: const Icon(Icons.keyboard_arrow_right_sharp),
-              title: Text(
-                'First',
-                style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-              ),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => First(),
-              )),
-            ),
-            ListTile(
-                leading: const Icon(Icons.keyboard_arrow_right_sharp),
-                title: Text(
-                  'Second',
-                  style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-                ),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Second(),
-                  ));
-                }),
-            ListTile(
-              leading: const Icon(Icons.keyboard_arrow_right_sharp),
-              title: Text(
-                'Dessert',
-                style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-              ),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Dessert(),
-              )),
-            ),
-            ListTile(
-              leading: const Icon(Icons.keyboard_arrow_right_sharp),
-              title: Text(
-                'Drink',
-                style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-              ),
-              onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Drink())),
-            ),
-            const Divider(color: Color.fromARGB(229, 0, 0, 0)),
-            ListTile(
-              leading: const Icon(Icons.add_shopping_cart),
-              title: Text(
-                'Order',
-                style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-              ),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Order(),
-              )),
-            ),
-          ],
-        ),
-      );
+          SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Antipasti()));
+              },
+              child: Text(
+                ' + Nuovo Ordine',
+                style: TextStyle(fontSize: 18),
+              ))
+        ],
+      )),
+    );
+  }
 }
