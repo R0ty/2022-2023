@@ -22,23 +22,18 @@ class BottomForOrder2 extends State<BottomForOrder> {
 
   @override
   Widget build(BuildContext context) => ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: Color.fromARGB(255, 37, 40, 80)),
+        style: ElevatedButton.styleFrom(primary: Colors.grey.shade200),
         onPressed: () {
           openDialog();
         },
-        
         child: Container(
-          color: Color.fromARGB(255, 37, 40, 80),
+          color: Colors.grey.shade200,
           padding: EdgeInsets.only(bottom: 20.0),
           child: Card(
-            child: ListTile(
-              tileColor: Color.fromARGB(255, 37, 40, 80),
-              title: Text(widget.name, style: TextStyle(color: Color.fromARGB(255, 247, 171, 197))),
-              subtitle: Text(
-                widget.descr,
-                style: TextStyle(color: Colors.white70),
-              ),
-            ),
+            child: Text(widget.name,
+                style: TextStyle(
+                    color: Colors.black,
+                    backgroundColor: Colors.grey.shade200)),
           ),
         ),
       );

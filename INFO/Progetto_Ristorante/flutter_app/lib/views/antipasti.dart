@@ -22,39 +22,7 @@ class _AntipastiState extends State<Antipasti> {
   Future<List<Food>> futureFoods = Antipasti.getFood();
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        drawer: Navigationdrawer(),
-        backgroundColor: Color.fromARGB(255, 37, 40, 80),
-        appBar: AppBar(
-          title: Stack(
-            children: <Widget>[
-              // Stroked text as border.
-              Text(
-                'Antipasti',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontStyle: FontStyle.italic,
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 6
-                    ..color = Colors.pink.shade300,
-                ),
-              ),
-              // Solid text as fill.
-              Text(
-                'Antipasti',
-                style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.white,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
-          ),
-          centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 37, 40, 80),
-        ),
-        body: Center(
+  Widget build(BuildContext context) { return Center(
           child: FutureBuilder<List<Food>>(
             future: futureFoods,
             builder: (context, snapshot) {
@@ -67,8 +35,9 @@ class _AntipastiState extends State<Antipasti> {
               }
             },
           ),
-        ),
-      );
+        );
+}
+
 
   Widget buildFood(List<Food> foods) => ListView.builder(
         itemCount: foods.length,

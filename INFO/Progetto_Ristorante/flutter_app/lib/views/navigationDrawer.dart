@@ -1,103 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/views/secondi.dart';
+import 'secondi.dart';
 import 'antipasti.dart';
 import 'bevande.dart';
 import 'dessert.dart';
-
 import 'ordine.dart';
 import 'primi.dart';
 
-class Navigationdrawer extends StatelessWidget {
-  const Navigationdrawer({Key? key}) : super(key: key);
-
+class NaviationDrawar extends StatefulWidget {
   @override
-  Widget build(BuildContext context) => Drawer(
-        backgroundColor: Color.fromARGB(255, 61, 60, 60),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              buildHeader(context),
-              buildMenuItems(context),
-            ],
-          ),
-        ),
-      );
+  State<NaviationDrawar> createState() => _NaviationDrawarState();
+}
 
-  Widget buildHeader(BuildContext context) => Container(
-        padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top,
-        ),
-      );
-
-  Widget buildMenuItems(BuildContext context) => Container(
-        padding: const EdgeInsets.all(24),
-        child: Wrap(
-          runSpacing: 16,
-          children: [
-            ListTile(
-                leading: const Icon(Icons.keyboard_arrow_right_sharp),
-                title: Text(
-                  'Starter',
-                  style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-                ),
-                onTap: () async {
-                  await Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Antipasti(),
-                  ));
-                }),
-            ListTile(
-              leading: const Icon(Icons.keyboard_arrow_right_sharp),
-              title: Text(
-                'First',
-                style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-              ),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Primi(),
-              )),
+class _NaviationDrawarState extends State<NaviationDrawar> {
+  int currentPageIndex = 0;
+  final pages = [
+    Antipasti(),
+    Primi(),
+    Secondi(),
+    Dessert(),
+    Bevande(),
+    Ordini()
+  ];
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: pages[currentPageIndex],
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          selectedIndex: currentPageIndex,
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.add_circle),
+              icon: Icon(Icons.add_circle_outline),
+              label: 'Antipasti',
             ),
-            ListTile(
-                leading: const Icon(Icons.keyboard_arrow_right_sharp),
-                title: Text(
-                  'Second',
-                  style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-                ),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Secondi(),
-                  ));
-                }),
-            ListTile(
-              leading: const Icon(Icons.keyboard_arrow_right_sharp),
-              title: Text(
-                'Dessert',
-                style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-              ),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Dessert(),
-              )),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.add_circle),
+              icon: Icon(Icons.add_circle_outline),
+              label: 'Primi',
             ),
-            ListTile(
-              leading: const Icon(Icons.keyboard_arrow_right_sharp),
-              title: Text(
-                'Drink',
-                style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-              ),
-              onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Bevande())),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.add_circle),
+              icon: Icon(Icons.add_circle_outline),
+              label: 'Secondi',
             ),
-            const Divider(color: Color.fromARGB(229, 0, 0, 0)),
-            ListTile(
-              leading: const Icon(Icons.add_shopping_cart),
-              title: Text(
-                'Order',
-                style: TextStyle(color: Colors.pink.shade200, fontSize: 20),
-              ),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Ordini(),
-              )),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.add_circle),
+              icon: Icon(Icons.add_circle_outline),
+              label: 'Dessert',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.add_circle),
+              icon: Icon(Icons.add_circle_outline),
+              label: 'Bevande',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.add_circle),
+              icon: Icon(Icons.add_circle_outline),
+              label: 'Ordine',
             ),
           ],
         ),
       );
+
+  Widget buildDestination(String name) {
+    return NavigationDestination(
+      selectedIcon: Icon(Icons.add_circle),
+      icon: Icon(Icons.add_circle_outline),
+      label: name,
+    );
+  }
 }
