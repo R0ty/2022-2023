@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'secondi.dart';
-import 'antipasti.dart';
-import 'bevande.dart';
-import 'dessert.dart';
+import 'package:flutter_app/views/pagina.dart';
 import 'ordine.dart';
-import 'primi.dart';
 
 class NaviationDrawar extends StatefulWidget {
   @override
@@ -14,11 +10,11 @@ class NaviationDrawar extends StatefulWidget {
 class _NaviationDrawarState extends State<NaviationDrawar> {
   int currentPageIndex = 0;
   final pages = [
-    Antipasti(),
-    Primi(),
-    Secondi(),
-    Dessert(),
-    Bevande(),
+    ProductsPage(getter: "/getAntipasti"),
+    ProductsPage(getter: "/getPrimi"),
+    ProductsPage(getter: "/getSecondi"),
+    ProductsPage(getter: "/getDessert"),
+    ProductsPage(getter: "/getBevande"),
     Ordini()
   ];
   @override

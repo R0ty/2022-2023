@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/views/antipasti.dart';
 import 'constant/constant.dart';
 import 'views/navigationDrawer.dart';
 
@@ -24,7 +23,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int dropdownvalue = list.first;
+  String dropdownvalue = list.first;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(
                 width: 100,
-                child: DropdownButtonFormField<int>(
+                child: DropdownButtonFormField<String>(
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -59,7 +58,7 @@ class _HomeState extends State<Home> {
                   elevation: 16,
                   style:
                       const TextStyle(color: Colors.blueAccent, fontSize: 30),
-                  onChanged: (int? value) {
+                  onChanged: (String? value) {
                     // This is called when the user selects an item.
                     setState(() {
                       dropdownvalue = value!;
@@ -68,7 +67,7 @@ class _HomeState extends State<Home> {
                     });
                   },
                   items: list
-                      .map((item) => DropdownMenuItem<int>(
+                      .map((item) => DropdownMenuItem<String>(
                             value: item,
                             child: Text('$item'),
                           ))
