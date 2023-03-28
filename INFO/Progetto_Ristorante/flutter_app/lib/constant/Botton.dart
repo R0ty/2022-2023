@@ -1,31 +1,31 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constant/constant.dart';
 
-class BottomForOrder extends StatefulWidget {
+class BottomAdd extends StatefulWidget {
   final String name;
-  final String descr;
 
-  BottomForOrder({
+  BottomAdd({
     Key? key,
     required this.name,
-    required this.descr,
   }) : super(key: key);
 
   @override
-  BottomForOrder2 createState() => BottomForOrder2();
+  BottomAdd2 createState() => BottomAdd2();
 }
 
-class BottomForOrder2 extends State<BottomForOrder> {
-  var numP;
+class BottomAdd2 extends State<BottomAdd> {
+  String correzione = "";
   TextEditingController editingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) => ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: Colors.grey.shade200),
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.grey.shade200),
         onPressed: () {
-          openDialog();
+          setState(() {
+            change1();
+          });
         },
+        onLongPress: () => openDialog(),
         child: Container(
           color: Colors.grey.shade200,
           padding: EdgeInsets.only(bottom: 20.0),
@@ -38,18 +38,14 @@ class BottomForOrder2 extends State<BottomForOrder> {
         ),
       );
 
+  // finestra che si apre quando tengo premuto il tasto
+
   Future openDialog() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Numero di Piatti'),
+          title: Text('Correzione'),
           content: TextField(
             controller: editingController,
-            decoration: InputDecoration(hintText: 'Enter your Number'),
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-              FilteringTextInputFormatter.digitsOnly,
-            ],
           ),
           actions: [
             TextButton(
@@ -59,9 +55,10 @@ class BottomForOrder2 extends State<BottomForOrder> {
             TextButton(
               child: Text('OK'),
               onPressed: () => setState(() {
-                numP = editingController.text;
+                correzione = editingController.text;
                 submit();
                 change();
+                correzione = "";
               }),
             ),
           ],
@@ -74,8 +71,34 @@ class BottomForOrder2 extends State<BottomForOrder> {
 
   void change() {
     setState(() {
-      totalOrder = totalOrder + '${widget.name} : $numP \n';
-      orderForResp = orderForResp + '${widget.name} : $numP ,';
+      items.add(Item(name: widget.name, correzione: ('$correzione ;')));
     });
+  }
+
+  void change1() {
+    setState(() {
+      items.add(Item(name: widget.name, correzione: ""));
+    });
+  }
+}
+
+class BottomForOrder extends StatelessWidget {
+  final String name;
+  final String correzione;
+
+  BottomForOrder({
+    Key? key,
+    required this.name,
+    required this.correzione,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: TextButton(
+        onPressed: () {},
+        child: Text(name),
+      ),
+    );
   }
 }

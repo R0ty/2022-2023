@@ -8,3 +8,11 @@ const List<String> list = <String>[
 ];
 var tavolo;
 
+class Item {
+  String name;
+  String correzione;
+
+  Item({required this.name, required this.correzione});
+}
+
+List<Item> items = [];

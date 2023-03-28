@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/model/model.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_app/constant/Botton.dart';
+import 'package:flutter_app/constant/botton.dart';
 
 class ProductsPage extends StatefulWidget {
   final String getter;
@@ -15,13 +15,6 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   List<Food> _products = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _getProductsFromServer();
-    Timer.periodic(Duration(seconds: 0), (_) => _getProductsFromServer());
-  }
 
   Future<void> _getProductsFromServer() async {
     final response =
@@ -37,6 +30,13 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   @override
+  void initState() {
+    Timer.periodic(Duration(seconds: 0), (_) => _getProductsFromServer());
+    super.initState();
+    _getProductsFromServer();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return _buildProductsList();
   }
@@ -49,7 +49,7 @@ class _ProductsPageState extends State<ProductsPage> {
         itemCount: _products.length,
         itemBuilder: (context, index) {
           final product = _products[index];
-          return BottomForOrder(name: product.name, descr: product.description);
+          return BottomAdd(name: product.name);
         },
       );
     }
