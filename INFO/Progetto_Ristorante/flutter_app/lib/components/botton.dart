@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/constant/constant.dart';
+import '../model/constant.dart';
 
 class BottomAdd extends StatefulWidget {
   final String name;

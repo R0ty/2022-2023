@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'constant/constant.dart';
-import 'views/navigationDrawer.dart';
+import 'model/constant.dart';
+import 'routes.dart';
 
 void main() => runApp(HomePage());
 

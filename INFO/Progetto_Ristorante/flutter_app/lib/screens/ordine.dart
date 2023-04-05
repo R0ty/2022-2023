@@ -1,9 +1,9 @@
-import 'package:flutter_app/constant/constant.dart';
+import 'package:flutter_app/model/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/main.dart';
 import 'package:http/http.dart' as http;
 
-import '../constant/Botton.dart';
+import '../components/Botton.dart';
 
 class Ordini extends StatefulWidget {
   @override

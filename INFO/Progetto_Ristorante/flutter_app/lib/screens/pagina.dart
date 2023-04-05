@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/model.dart';
+import 'package:flutter_app/model/food.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_app/constant/botton.dart';
+import 'package:flutter_app/components/botton.dart';
 
 class ProductsPage extends StatefulWidget {
   final String getter;
@@ -31,9 +31,9 @@ class _ProductsPageState extends State<ProductsPage> {
 
   @override
   void initState() {
-    Timer.periodic(Duration(seconds: 0), (_) => _getProductsFromServer());
     super.initState();
     _getProductsFromServer();
+    Timer.periodic(Duration(seconds: 0), (_) => _getProductsFromServer());
   }
 
   @override

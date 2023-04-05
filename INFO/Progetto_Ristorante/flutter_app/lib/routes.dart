@@ -1,9 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app/views/pagina.dart';
-import 'ordine.dart';
-
+import 'screens/ordine.dart';
+import 'dart:async';
+import 'screens/pagina.dart';
 class NaviationDrawar extends StatefulWidget {
   @override
   State<NaviationDrawar> createState() => _NaviationDrawarState();
@@ -11,17 +9,18 @@ class NaviationDrawar extends StatefulWidget {
 
 class _NaviationDrawarState extends State<NaviationDrawar> {
   int currentPageIndex = 0;
-  List pages = [
-    new ProductsPage(getter: "/getAntipasti"),
-    new ProductsPage(getter: "/getPrimi"),
-    new ProductsPage(getter: "/getSecondi"),
-    new ProductsPage(getter: "/getDessert"),
-    new ProductsPage(getter: "/getBevande"),
-    new Ordini()
+  List<Widget> _pages = <Widget>[
+    ProductsPage(getter: "/getAntipasti"),
+    ProductsPage(getter: "/getPrimi"),
+    ProductsPage(getter: "/getSecondi"),
+    ProductsPage(getter: "/getDessert"),
+    ProductsPage(getter: "/getBevande"),
+    Ordini()
   ];
+
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: pages[currentPageIndex],
+        body: _pages[currentPageIndex],
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
             setState(() {
