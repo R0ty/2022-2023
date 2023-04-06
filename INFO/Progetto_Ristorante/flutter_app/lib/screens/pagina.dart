@@ -33,7 +33,7 @@ class _ProductsPageState extends State<ProductsPage> {
   void initState() {
     super.initState();
     _getProductsFromServer();
-    Timer.periodic(Duration(seconds: 0), (_) => _getProductsFromServer());
+    
   }
 
   @override

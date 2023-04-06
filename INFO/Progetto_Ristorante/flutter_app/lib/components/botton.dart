@@ -82,11 +82,13 @@ class BottomAdd2 extends State<BottomAdd> {
   }
 }
 
-class BottomForOrder extends StatelessWidget {
+// BOTTONE PER ORDINARE
+
+class ButtomOrder extends StatelessWidget {
   final String name;
   final String correzione;
 
-  BottomForOrder({
+  ButtomOrder({
     Key? key,
     required this.name,
     required this.correzione,
@@ -94,8 +96,10 @@ class BottomForOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TextButton(
+    return SizedBox(
+      width: 5,
+      height: 50,
+      child: ElevatedButton(
         onPressed: () {},
         child: Text(name),
       ),
