@@ -96,13 +96,32 @@ class ButtomOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 5,
-      height: 50,
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Text(name),
-      ),
-    );
+    if (correzione == "") {
+      return SizedBox(
+        width: 5,
+        height: 50,
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text(name),
+        ),
+      );
+    } else {
+      return SizedBox(
+        width: 5,
+        height: 50,
+        child: Row(
+          children: [
+            SizedBox(
+              width: 20,
+            ),
+            Text(name),
+            SizedBox(
+              width: 20,
+            ),
+            Text("correzione: $correzione"),
+          ],
+        ),
+      );
+    }
   }
 }

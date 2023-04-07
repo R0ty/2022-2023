@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'screens/ordine.dart';
-import 'dart:async';
 import 'screens/pagina.dart';
+
 class NaviationDrawar extends StatefulWidget {
   @override
-  State<NaviationDrawar> createState() => _NaviationDrawarState();
+  State<NaviationDrawar> createState() => NaviationDrawarState();
 }
 
-class _NaviationDrawarState extends State<NaviationDrawar> {
+class NaviationDrawarState extends State<NaviationDrawar> {
   int currentPageIndex = 0;
+
   List<Widget> _pages = <Widget>[
-    ProductsPage(getter: "/getAntipasti"),
-    ProductsPage(getter: "/getPrimi"),
-    ProductsPage(getter: "/getSecondi"),
-    ProductsPage(getter: "/getDessert"),
-    ProductsPage(getter: "/getBevande"),
+    new ProductsPage(getter: "/getAntipasti"),
+    new ProductsPage(getter: "/getPrimi"),
+    new ProductsPage(getter: "/getSecondi"),
+    new ProductsPage(getter: "/getDessert"),
+    new ProductsPage(getter: "/getBevande"),
     Ordini()
   ];
 
