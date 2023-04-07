@@ -15,6 +15,9 @@ Nella cartella components:
 
 
 Tutte le immagini e i loghi sono contenuti nella cartella assets
+
+
 # COSE DA FARE
-- sistemare aggiornametno della pagina dinamica
-- sistemare il problema della order page
+
+Mettere apposto in modo stilistico la Order Page
+Sistemare il DB per le richieste
