@@ -1,4 +1,4 @@
-
+import 'package:flutter/material.dart';
 
 String totalOrder = '';
 var orderForResp = '';
@@ -19,4 +19,8 @@ class Item {
 
 List<Item> items = [];
 
+// index per lo state della chiamata al db dalla pagina.dart
+int indexState = 0;
 
+Color nero = Color(0);
+Color bianco = Color.fromARGB(255, 245, 245, 247);

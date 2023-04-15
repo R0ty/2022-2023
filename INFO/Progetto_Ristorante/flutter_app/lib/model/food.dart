@@ -1,6 +1,4 @@
 
-
-
 //
 class Food {
   final String name;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/ordine.dart';
 import 'screens/pagina.dart';
+import 'model/constant.dart';
 
 class NaviationDrawar extends StatefulWidget {
   @override
@@ -26,6 +27,8 @@ class NaviationDrawarState extends State<NaviationDrawar> {
           onDestinationSelected: (int index) {
             setState(() {
               currentPageIndex = index;
+              indexState = currentPageIndex;
+              print(currentPageIndex);
             });
           },
           selectedIndex: currentPageIndex,

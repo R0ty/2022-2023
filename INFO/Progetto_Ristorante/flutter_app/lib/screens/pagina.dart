@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/model/constant.dart';
 import 'package:flutter_app/model/food.dart';
 import 'package:flutter_app/components/botton.dart';
 import '../routes.dart';
@@ -17,26 +18,28 @@ class _ProductsPageState extends State<ProductsPage> {
   List<Food> _products = [];
 
   Future<void> getProductsFromServer() async {
-    var response =
-        await http.get(Uri.parse('http://10.0.2.2:4000${widget.getter}'));
+    var response = await http
+        .get(Uri.parse('https://ristorante.loophole.site${widget.getter}'));
     if (response.statusCode == 200) {
       var jsonList = json.decode(response.body) as List<dynamic>;
-
+      print(indexState);
       // BLOCCO PER IL CURRENT INDEX
-      if (NaviationDrawarState().currentPageIndex != 5) {
+      if (indexState != 5) {
         setState(() {
           _products = jsonList.map((json) => Food.fromJson(json)).toList();
         });
-      } else {
-        throw Exception('Failed to load food');
       }
+    } else {
+      throw Exception('Failed to load food');
     }
   }
 
   @override
   void initState() {
     super.initState();
-    getProductsFromServer();
+    if (indexState != 5) {
+      getProductsFromServer();
+    }
   }
 
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   Widget _buildProductsList() {
-    if (NaviationDrawarState().currentPageIndex != 5) {
+    if (indexState != 5) {
       getProductsFromServer();
     }
     if (_products.isEmpty) {
