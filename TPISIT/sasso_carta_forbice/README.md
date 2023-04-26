@@ -1,16 +1,11 @@
 # sasso_carta_forbice
 
-A new Flutter project.
+Il progetto è diviso principalemnte in due file:
+- constant.dart
+- main.dart
 
-## Getting Started
+Nell constant.dart sono situate tutte le variabili che vengono utilizzate nel programma,come per esempio la lista di emoij e i risultati dei giocatori.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Nel main.dart invece c'è tutto l'eseguibile del programma. In questo ci sono diversi metodi utilizzati per:
+- buildScelta() : usato per costruire la parte di pagina con le emoji scelte dal utente e dal pc
+- bottoneScelta() : con cui costruisco i tre bottoni per scegliere il sasso la carta o la forbice. Dopo aver scielto il giocatore può scuotere il telefono e tramite degli if costrutiti nel setState() della funzione onPhoneShake all'utente verrà visulizzato il pop contente il risultato del match.
