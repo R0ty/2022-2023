@@ -28,7 +28,7 @@ class NaviationDrawarState extends State<NaviationDrawar> {
             setState(() {
               currentPageIndex = index;
               indexState = currentPageIndex;
-              print(currentPageIndex);
+              bo = true;
             });
           },
           selectedIndex: currentPageIndex,

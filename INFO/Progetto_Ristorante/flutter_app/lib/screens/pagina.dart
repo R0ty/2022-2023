@@ -11,22 +11,23 @@ class ProductsPage extends StatefulWidget {
   ProductsPage({required this.getter});
 
   @override
-  State<ProductsPage> createState() => _ProductsPageState();
+  State<ProductsPage> createState() => ProductsPageState();
 }
 
-class _ProductsPageState extends State<ProductsPage> {
+class ProductsPageState extends State<ProductsPage> {
   List<Food> _products = [];
 
   Future<void> getProductsFromServer() async {
-    var response = await http
-        .get(Uri.parse('https://ristorante.loophole.site${widget.getter}'));
+    var response = await http.get(Uri.parse('$localhost${widget.getter}'));
     if (response.statusCode == 200) {
       var jsonList = json.decode(response.body) as List<dynamic>;
       print(indexState);
+      print(bo);
       // BLOCCO PER IL CURRENT INDEX
-      if (indexState != 5) {
+      if (indexState != 5 && bo == true) {
         setState(() {
           _products = jsonList.map((json) => Food.fromJson(json)).toList();
+          bo = false;
         });
       }
     } else {
@@ -37,9 +38,6 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   void initState() {
     super.initState();
-    if (indexState != 5) {
-      getProductsFromServer();
-    }
   }
 
   Widget build(BuildContext context) {
@@ -47,9 +45,7 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   Widget _buildProductsList() {
-    if (indexState != 5) {
-      getProductsFromServer();
-    }
+    getProductsFromServer();
     if (_products.isEmpty) {
       return Center(child: CircularProgressIndicator());
     } else {

@@ -1,6 +1,6 @@
 import 'package:flutter_app/model/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/main.dart';
+import 'tavolo.dart';
 import 'package:http/http.dart' as http;
 import '../components/botton.dart';
 
@@ -60,7 +60,7 @@ class _Ordini extends State<Ordini> {
               ),
 
               //BOTTONE CHE INVIA
-              
+
               TextButton(
                   child: Text('Invia',
                       style: TextStyle(
