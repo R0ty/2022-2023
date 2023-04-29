@@ -5,10 +5,10 @@ const getItemsOpts = {
                 type: 'array',
                 items: {
                     type: 'object',
-                    required: ['id','ordine', 'tavolo'],
+                    required: ['id','name', 'password'],
                     properties: {
-                        ordine: {type: 'string'},
-                        tavolo: {type: 'integer'},
+                        name: {type: 'string'},
+                        password: {type: 'integer'},
                     },
                 },
             }, 

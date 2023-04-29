@@ -37,6 +37,26 @@ async function poolRoutes (fastify, options) {
         
     })
 
+
+    fastify.get('/utente', async (request, reply) => {
+        const name = request.query.name;
+        const password = request.query.password;
+      
+        // Esegui il controllo delle credenziali dell'utente
+        try {
+          const result = await pool.query('SELECT * FROM camerieri WHERE name = $1 AND password = $2', [name, password]);
+          if (result.rows.length > 0) {
+            reply.send({ autenticato: true });
+          } else {
+            reply.send({ autenticato: false });
+          }
+        } catch (error) {
+          console.error(error);
+          reply.send({ error: 'Si è verificato un errore durante il controllo delle credenziali dell\'utente.' });
+        }
+      });
+
+      
     fastify.post('/post/:ordine/:tavolo', async (request,reply) => {
         const ordine = request.params.ordine
         const tavolo = request.params.tavolo  
