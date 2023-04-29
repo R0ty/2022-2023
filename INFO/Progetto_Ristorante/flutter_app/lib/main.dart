@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/tavolo.dart';
-
+import 'screens/loginPage.dart';
 void main() => runApp(HomePage());
 
 class HomePage extends StatefulWidget {
@@ -15,7 +14,7 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
         title: 'App Camerieri',
         debugShowCheckedModeBanner: false,
-        home: Home());
+        home: LoginPage());
   }
 }
 

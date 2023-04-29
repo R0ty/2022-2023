@@ -46,7 +46,7 @@ class _Ordini extends State<Ordini> {
                                 child: Text('OK'),
                                 onPressed: () => Navigator.of(context)
                                     .push(MaterialPageRoute(
-                                  builder: (context) => Home(),
+                                  builder: (context) => Tavolo(),
                                 )),
                               ),
                             ],
@@ -85,7 +85,7 @@ class _Ordini extends State<Ordini> {
                                   child: Text('OK'),
                                   onPressed: () => Navigator.of(context)
                                       .push(MaterialPageRoute(
-                                    builder: (context) => Home(),
+                                    builder: (context) => Tavolo(),
                                   )),
                                 ),
                               ],

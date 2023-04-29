@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../model/constant.dart';
 import '../routes.dart';
 
-class Home extends StatefulWidget {
+class Tavolo extends StatefulWidget {
   @override
-  State<Home> createState() => _HomeState();
+  State<Tavolo> createState() => _TavoloState();
 }
 
-class _HomeState extends State<Home> {
+class _TavoloState extends State<Tavolo> {
   String dropdownvalue = list.first;
 
   @override
