@@ -84,11 +84,11 @@ class BottomAdd2 extends State<BottomAdd> {
 
 // BOTTONE PER ORDINARE
 
-class ButtomOrder extends StatelessWidget {
+class Piatto extends StatelessWidget {
   final String name;
   final String correzione;
 
-  ButtomOrder({
+  Piatto({
     Key? key,
     required this.name,
     required this.correzione,
@@ -96,6 +96,8 @@ class ButtomOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //PIATTO SENZA CORREZIONE
     if (correzione == "") {
       return SizedBox(
         width: 5,
@@ -105,7 +107,9 @@ class ButtomOrder extends StatelessWidget {
           child: Text(name),
         ),
       );
-    } else {
+    } 
+    //PIATTO CON CORREZION
+    else {
       return SizedBox(
         width: 5,
         height: 50,

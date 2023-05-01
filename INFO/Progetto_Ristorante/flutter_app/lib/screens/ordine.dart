@@ -72,9 +72,7 @@ class _Ordini extends State<Ordini> {
                     setState(() {
                       tavolo = editingController.text;
                       http.post(
-                        Uri.parse(
-                            'http://10.0.2.2:4000/post/$orderForResp/$tavolo'),
-                      );
+                          Uri.parse('$localhost/post/$orderForResp/$tavolo'));
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -107,7 +105,7 @@ class _Ordini extends State<Ordini> {
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        return ButtomOrder(name: item.name, correzione: item.correzione);
+        return Piatto(name: item.name, correzione: item.correzione);
       },
     );
   }

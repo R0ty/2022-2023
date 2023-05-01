@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         .get(Uri.parse('$localhost/utente?name=$username&password=$password'));
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      final data = json.decode(response.body); 
       if (data['autenticato'] == true) {
         print("PORCO DI=");
         // L'utente è stato autenticato correttamente, puoi navigare alla tua pagina principale

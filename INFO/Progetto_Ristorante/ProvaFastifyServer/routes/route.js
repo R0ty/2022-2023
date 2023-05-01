@@ -4,19 +4,19 @@ const {schema2} = require('./schemaOrder')
 async function poolRoutes (fastify, options) {
 
     fastify.get('/getAntipasti', {schema: schema},async (request, reply) => {
-        const res =await pool.query('SELECT * FROM starter')
+        const res =await pool.query('SELECT * FROM antipasti')
         reply.send(res.rows)
         
     })
 
     fastify.get('/getPrimi',{schema: schema}, async (request, reply) => {
-        const res =await pool.query('SELECT * FROM first')
+        const res =await pool.query('SELECT * FROM primi')
         reply.send(res.rows)
         
     })
 
     fastify.get('/getSecondi', {schema: schema},async (request, reply) => {
-        const res =await pool.query('SELECT * FROM second')
+        const res =await pool.query('SELECT * FROM secondi')
         reply.send(res.rows)
         
     })
@@ -27,12 +27,12 @@ async function poolRoutes (fastify, options) {
         
     })
     fastify.get('/geBevande', {schema: schema},async (request, reply) => {
-        const res =await pool.query('SELECT * FROM drink')
+        const res =await pool.query('SELECT * FROM bevande')
         reply.send(res.rows)
         
     })
-    fastify.get('/getRisposta', {schema: schema2},async (request, reply) => {
-        const res =await pool.query('SELECT * FROM risposta')
+    fastify.get('/getOrdinazioni', {schema: schema2},async (request, reply) => {
+        const res =await pool.query('SELECT * FROM ordinazioni')
         reply.send(res.rows)
         
     })
@@ -57,11 +57,12 @@ async function poolRoutes (fastify, options) {
       });
 
       
-    fastify.post('/post/:ordine/:tavolo', async (request,reply) => {
-        const ordine = request.params.ordine
+    fastify.post('/post/:piatto/:correzione/:tavolo', async (request,reply) => {
+        const piatto = request.params.piatto
+        const correzione = request.params.correzione
         const tavolo = request.params.tavolo  
-        const query = {text: 'INSERT INTO risposta (ordine, tavolo) VALUES ($1, $2)',
-        values: [ordine, tavolo],
+        const query = {text: 'INSERT INTO ordinazioni (piatto, correzione, tavolo) VALUES ($1, $2, $3)',
+        values: [piatto, correzione, tavolo],
     }
     
         try {
