@@ -71,13 +71,13 @@ class BottomAdd2 extends State<BottomAdd> {
 
   void change() {
     setState(() {
-      items.add(Item(name: widget.name, correzione: ('$correzione ;')));
+      items.add(Item(name: widget.name, correzione: ('$correzione ;'), tavolo: tavolo));
     });
   }
 
   void change1() {
     setState(() {
-      items.add(Item(name: widget.name, correzione: ""));
+      items.add(Item(name: widget.name, correzione: "", tavolo: tavolo));
     });
   }
 }

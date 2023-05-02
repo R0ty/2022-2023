@@ -57,26 +57,25 @@ async function poolRoutes (fastify, options) {
       });
 
       
-    fastify.post('/post/:piatto/:correzione/:tavolo', async (request,reply) => {
-        const piatto = request.params.piatto
-        const correzione = request.params.correzione
-        const tavolo = request.params.tavolo  
-        const query = {text: 'INSERT INTO ordinazioni (piatto, correzione, tavolo) VALUES ($1, $2, $3)',
-        values: [piatto, correzione, tavolo],
-    }
-    
+      fastify.post('/ordinazioni', async (request, reply) => {
         try {
-            const {rows} = await pool.query(query)
-            console.log(rows)
-            reply.code(201, 'Order received')
-            return {created: true}
-            
-        } catch (err) {
-                throw new Error(err)
+          const items = request.body.items;
+          // fai qualcosa con la lista di oggetti JSON qui
+          // ad esempio, inseriscili in un database
+          for (const item of items) {
+            const query = {
+              text: 'INSERT INTO ordinazioni (piatto, correzione, tavolo) VALUES ($1, $2, $3)',
+              values: [item.name, item.correzione, item.tavolo],
+            };
+            await pool.query(query);
+          }
+          reply.send({ message: 'Ordini inseriti correttamente' });
+        } catch (error) {
+          console.error(error);
+          reply.code(500).send({ message: 'Errore nel server' });
         }
-           
-    }
-    )
+      });
+      
 }
 
 
