@@ -56,23 +56,26 @@ async function poolRoutes (fastify, options) {
         }
       });
 
-      
       fastify.post('/ordinazioni', async (request, reply) => {
         try {
-          const items = request.body.items;
-          // fai qualcosa con la lista di oggetti JSON qui
-          // ad esempio, inseriscili in un database
+          const items = request.body; // Array di oggetti ricevuti dal payload JSON
+      
+          // Connessione al database PostgreSQL
+          const client = await pool.connect();
+      
+          // Inserimento degli oggetti nel database
           for (const item of items) {
-            const query = {
-              text: 'INSERT INTO ordinazioni (piatto, correzione, tavolo) VALUES ($1, $2, $3)',
-              values: [item.name, item.correzione, item.tavolo],
-            };
-            await pool.query(query);
+            const query = 'INSERT INTO ordinazioni (piatto, correzione, tavolo) VALUES ($1, $2, $3)';
+            await client.query(query, [item.piatto, item.correzione, item.tavolo]);
           }
-          reply.send({ message: 'Ordini inseriti correttamente' });
-        } catch (error) {
-          console.error(error);
-          reply.code(500).send({ message: 'Errore nel server' });
+      
+          // Rilascio del client della connessione al database
+          client.release();
+      
+          reply.code(200).send({ message: 'Oggetti inseriti con successo' });
+        } catch (err) {
+          console.error(err);
+          reply.code(500).send({ message: 'Errore durante l\'inserimento degli oggetti' });
         }
       });
       

@@ -1,9 +1,6 @@
-import 'dart:convert';
 
 import 'package:flutter_app/model/constant.dart';
 import 'package:flutter/material.dart';
-import 'tavolo.dart';
-import 'package:http/http.dart' as http;
 import '../components/botton.dart';
 
 class Ordini extends StatefulWidget {
@@ -28,6 +25,7 @@ class _Ordini extends State<Ordini> {
                 SizedBox(
                   width: 20,
                 ),
+
                 // BOTTONE ELIMINA TUTTO
                 /*
                 TextButton(
@@ -63,8 +61,6 @@ class _Ordini extends State<Ordini> {
                   width: 160,
                 ),
               */
-                //BOTTONE CHE INVIA
-
                 TextButton(
                     child: Text(
                       'Invia',
@@ -72,41 +68,10 @@ class _Ordini extends State<Ordini> {
                     onPressed: () {
                       // BOTTONE CHE INVIA TUTTO
                       setState(() {
-                        Future<void> postRequest() async {
-                          try {
-                            var url = Uri.parse('$localhost/ordinazioni');
-                            var headers = {'Content-Type': 'application/json'};
-                            List<Map<String, dynamic>> foodJson =
-                                items.map((Item) => Item.toJson()).toList();
-                            print(foodJson);
-                            var response = await http.post(url,
-                                headers: headers, body: foodJson);
-                            if (response.statusCode == 200) {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      content: Text('Ordine ricevuto'),
-                                      actions: [
-                                        TextButton(
-                                          child: Text('OK'),
-                                          onPressed: () => Navigator.of(context)
-                                              .push(MaterialPageRoute(
-                                            builder: (context) => Tavolo(),
-                                          )),
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            }
-                          } catch (error) {
-                            print('error');
-                            throw error;
-                          }
-                        }
-
-                        postRequest();
+                        
+                        postRequest(context);
                       });
+                      
                     }),
               ],
             ),
@@ -123,7 +88,7 @@ class _Ordini extends State<Ordini> {
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        return Piatto(name: item.name, correzione: item.correzione);
+        return Piatto(name: item.piatto, correzione: item.correzione);
       },
     );
   }

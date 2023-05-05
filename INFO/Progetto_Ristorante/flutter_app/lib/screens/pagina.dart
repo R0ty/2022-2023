@@ -16,6 +16,7 @@ class ProductsPage extends StatefulWidget {
 class ProductsPageState extends State<ProductsPage> {
   List<Food> _products = [];
 
+//RICHIESTA DEI PIATTI AL DB
   Future<void> getProductsFromServer() async {
     var response = await http.get(Uri.parse('$localhost${widget.getter}'));
     if (response.statusCode == 200) {
@@ -35,10 +36,6 @@ class ProductsPageState extends State<ProductsPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
   Widget build(BuildContext context) {
     return _buildProductsList();
   }

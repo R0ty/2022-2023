@@ -50,7 +50,7 @@ class _TavoloState extends State<Tavolo> {
                       tavolo = value;
                       print(tavolo);
                     });
-                  },
+                  },  
                   items: list
                       .map((item) => DropdownMenuItem<String>(
                             value: item,

@@ -69,15 +69,20 @@ class BottomAdd2 extends State<BottomAdd> {
     Navigator.of(context).pop();
   }
 
+  //ITEM QUANDO TENGO PREMUTO IL TASTO
+
   void change() {
     setState(() {
-      items.add(Item(name: widget.name, correzione: ('$correzione ;'), tavolo: tavolo));
+      items.add(Item(piatto: widget.name, correzione: ('$correzione'), tavolo: tavolo));
     });
   }
 
+
+  //ITEM QUANDO NON TENGO PREMUTO IL TASTO
+
   void change1() {
     setState(() {
-      items.add(Item(name: widget.name, correzione: "", tavolo: tavolo));
+      items.add(Item(piatto: widget.name, correzione: "", tavolo: tavolo));
     });
   }
 }
@@ -108,7 +113,7 @@ class Piatto extends StatelessWidget {
         ),
       );
     } 
-    //PIATTO CON CORREZION
+    //PIATTO CON CORREZIONE
     else {
       return SizedBox(
         width: 5,
