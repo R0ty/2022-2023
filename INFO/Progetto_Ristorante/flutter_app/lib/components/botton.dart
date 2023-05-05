@@ -4,10 +4,8 @@ import '../model/constant.dart';
 class BottomAdd extends StatefulWidget {
   final String name;
 
-  BottomAdd({
-    Key? key,
-    required this.name,
-  }) : super(key: key);
+  BottomAdd({Key? key, required this.name, })
+      : super(key: key);
 
   @override
   BottomAdd2 createState() => BottomAdd2();
@@ -25,7 +23,7 @@ class BottomAdd2 extends State<BottomAdd> {
             change1();
           });
         },
-        onLongPress: () => openDialog(),
+        onLongPress: () => openDialog(context),
         child: Container(
           color: Colors.grey.shade200,
           padding: EdgeInsets.only(bottom: 20.0),
@@ -40,7 +38,7 @@ class BottomAdd2 extends State<BottomAdd> {
 
   // finestra che si apre quando tengo premuto il tasto
 
-  Future openDialog() => showDialog(
+  Future openDialog(var context) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Correzione'),
@@ -50,35 +48,32 @@ class BottomAdd2 extends State<BottomAdd> {
           actions: [
             TextButton(
               child: Text('Cancel'),
-              onPressed: () => submit(),
+              onPressed: () => submit(context),
             ),
             TextButton(
               child: Text('OK'),
               onPressed: () => setState(() {
                 correzione = editingController.text;
-                submit();
                 change();
+                print('$indexState');
+                submit(context);
                 correzione = "";
               }),
             ),
           ],
         ),
       );
-
-  void submit() {
+  void submit(var context) {
     Navigator.of(context).pop();
   }
-
   //ITEM QUANDO TENGO PREMUTO IL TASTO
 
   void change() {
     setState(() {
-      items.add(Item(piatto: widget.name, correzione: ('$correzione'), tavolo: tavolo));
+      items.add(Item(
+          piatto: widget.name, correzione: ('$correzione'), tavolo: tavolo));
     });
   }
-
-
-  //ITEM QUANDO NON TENGO PREMUTO IL TASTO
 
   void change1() {
     setState(() {
@@ -101,7 +96,6 @@ class Piatto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //PIATTO SENZA CORREZIONE
     if (correzione == "") {
       return SizedBox(
@@ -112,8 +106,8 @@ class Piatto extends StatelessWidget {
           child: Text(name),
         ),
       );
-    } 
-    //PIATTO CON CORREZIONE
+    }
+    //PIATTO CON CORREZION
     else {
       return SizedBox(
         width: 5,

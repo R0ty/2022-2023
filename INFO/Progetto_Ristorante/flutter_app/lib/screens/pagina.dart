@@ -49,7 +49,9 @@ class ProductsPageState extends State<ProductsPage> {
         itemCount: _products.length,
         itemBuilder: (context, index) {
           final product = _products[index];
-          return BottomAdd(name: product.name);
+          return BottomAdd(
+            name: product.name,
+          );
         },
       );
     }

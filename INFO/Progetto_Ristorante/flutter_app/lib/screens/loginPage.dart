@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     final String password = _passwordController.text;
 
     final response = await http
-        .get(Uri.parse('$url  /utente?name=$username&password=$password'));
+        .get(Uri.parse('$url/utente?name=$username&password=$password'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body); 
       if (data['autenticato'] == true) {

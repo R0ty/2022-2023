@@ -85,8 +85,8 @@ Future<void> postRequest(var context) async {
               actions: [
                 TextButton(
                   child: Text('OK'),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Tavolo(),
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Tavolo(),
                   )),
                 ),
               ],
