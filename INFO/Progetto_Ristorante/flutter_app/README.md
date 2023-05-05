@@ -19,5 +19,5 @@ Tutte le immagini e i loghi sono contenuti nella cartella assets
 
 # COSE DA FARE
 
-Mettere apposto in modo stilistico la Order Page
-Sistemare il DB per le richieste
+fare bottoni nella pagina ordine
+sistemare il colore di sfondo di quando si apre l'applicazione

@@ -15,7 +15,7 @@ const List<String> list = <String>[
 
 // TAVOLO SCELTO
 
-String tavolo = '';
+String tavolo = list[0];
 
 //usato per fare l'aggiornamento della pagina una volta sola
 
@@ -31,7 +31,7 @@ Color bianco = Color.fromARGB(255, 245, 245, 247);
 
 //SERVER INDIRIZZo
 
-String url = localhost;
+String url = loophole;
 String loophole = 'https://ristorante.loophole.site';
 String localhost = 'http://10.0.2.2:4000';
 
@@ -75,7 +75,7 @@ Future<void> postRequest(var context) async {
       //DIALOG DOPO AVER INVIATO L 'ORDINE
 
       // ignore: unused_local_variable
-     items = [];
+      items = [];
       indexState = 0;
       showDialog(
           context: context,
