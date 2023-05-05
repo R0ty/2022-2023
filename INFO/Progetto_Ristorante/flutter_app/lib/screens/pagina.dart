@@ -18,7 +18,7 @@ class ProductsPageState extends State<ProductsPage> {
 
 //RICHIESTA DEI PIATTI AL DB
   Future<void> getProductsFromServer() async {
-    var response = await http.get(Uri.parse('$localhost${widget.getter}'));
+    var response = await http.get(Uri.parse('$url${widget.getter}'));
     if (response.statusCode == 200) {
       var jsonList = json.decode(response.body) as List<dynamic>;
       print(indexState);

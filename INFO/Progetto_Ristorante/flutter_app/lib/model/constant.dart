@@ -4,13 +4,38 @@ import 'package:flutter/material.dart';
 
 import '../screens/tavolo.dart';
 
+// LISTA DEI TAVOLO
+
 const List<String> list = <String>[
   "0",
   "1",
   "2",
   "3",
 ];
-var tavolo;
+
+// TAVOLO SCELTO
+
+String tavolo = '';
+
+//usato per fare l'aggiornamento della pagina una volta sola
+
+bool bo = true;
+
+// index per lo state della chiamata al db dalla pagina.dart
+int indexState = 0;
+
+// COLORI DELLA APPLICAZIONE
+
+Color nero = Color(0);
+Color bianco = Color.fromARGB(255, 245, 245, 247);
+
+//SERVER INDIRIZZo
+
+String url = localhost;
+String loophole = 'https://ristorante.loophole.site';
+String localhost = 'http://10.0.2.2:4000';
+
+// ITEM PER COSTRUIRE GLI OGGETTI CHE VERRANNO VISUALIZZAI NELLA PAGINE E POI INVIATI AL DB
 
 class Item {
   String piatto;
@@ -34,7 +59,7 @@ List<Item> items = [];
 
 Future<void> postRequest(var context) async {
   try {
-    var url = Uri.parse('$localhost/ordinazioni');
+    var _url = Uri.parse('$url/ordinazioni');
     var headers = {'Content-Type': 'application/json'};
     var foodJson = items.map((e) {
       return {
@@ -45,9 +70,13 @@ Future<void> postRequest(var context) async {
     }).toList(); //convert to map
     String body = json.encode(foodJson);
     print(body);
-    var response = await http.post(url, headers: headers, body: body);
+    var response = await http.post(_url, headers: headers, body: body);
     if (response.statusCode == 200) {
       //DIALOG DOPO AVER INVIATO L 'ORDINE
+
+      // ignore: unused_local_variable
+     items = [];
+      indexState = 0;
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -69,18 +98,3 @@ Future<void> postRequest(var context) async {
     throw error;
   }
 }
-
-//usato per fare l'aggiornamento della pagina una volta sola
-
-bool bo = true;
-
-// index per lo state della chiamata al db dalla pagina.dart
-int indexState = 0;
-
-Color nero = Color(0);
-Color bianco = Color.fromARGB(255, 245, 245, 247);
-
-//SERVER INDIRIZZI
-
-String loophole = 'https://ristorante.loophole.site';
-String localhost = 'http://10.0.2.2:4000';

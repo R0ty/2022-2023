@@ -25,42 +25,6 @@ class _Ordini extends State<Ordini> {
                 SizedBox(
                   width: 20,
                 ),
-
-                // BOTTONE ELIMINA TUTTO
-                /*
-                TextButton(
-                  child: Text('Elimina ',
-                      style: TextStyle(
-                          color: Colors.pink.shade200,
-                          fontSize: 25,
-                          fontStyle: FontStyle.italic)),
-                  onPressed: () {
-                    setState(() {
-                      totalOrder = "";
-                      orderForResp = "";
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: Text('Ordine Eliminato'),
-                              actions: [
-                                TextButton(
-                                  child: Text('OK'),
-                                  onPressed: () => Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                    builder: (context) => Tavolo(),
-                                  )),
-                                ),
-                              ],
-                            );
-                          });
-                    });
-                  },
-                ),
-                SizedBox(
-                  width: 160,
-                ),
-              */
                 TextButton(
                     child: Text(
                       'Invia',
