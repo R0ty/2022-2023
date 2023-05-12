@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/model/constant.dart';
 import 'screens/loginPage.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
@@ -10,16 +11,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreenView(
-        backgroundColor: Colors.white,
+        backgroundColor: nero,
         duration: 6000,
         imageSize: 200,
-        imageSrc: "assets/logo.png",
+        imageSrc: "assets/logoSplash.png",
         text: "App Camerieri  ",
         textType: TextType.ColorizeAnimationText,
         textStyle: TextStyle(
           fontSize: 40.0,
         ),
-        colors: [Colors.black, Colors.grey.shade100, Colors.black],
+        colors: [bianco, Colors.grey.shade100, bianco],
         navigateRoute: HomePage(),
       ),
     );

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/constant.dart';
-import 'package:flutter_app/screens/tavolo.dart';
+import '../model/constant.dart';
+import '../screens/tavolo.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
@@ -28,9 +28,8 @@ class _LoginPageState extends State<LoginPage> {
     final response = await http
         .get(Uri.parse('$url/utente?name=$username&password=$password'));
     if (response.statusCode == 200) {
-      final data = json.decode(response.body); 
+      final data = json.decode(response.body);
       if (data['autenticato'] == true) {
-        print("PORCO DI=");
         // L'utente è stato autenticato correttamente, puoi navigare alla tua pagina principale
         Navigator.pushReplacement(
           context,
@@ -56,10 +55,72 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        centerTitle: true,
+        title: Text('Login', style: TextStyle(fontSize: 50)),
+        backgroundColor: Colors.black,
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: Container(
+        color: Colors.black,
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                controller: _usernameController,
+                style: TextStyle(color: bianco),
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: bianco),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: bianco)),
+                    labelText: 'Username',
+                    labelStyle: TextStyle(color: bianco)),
+              ),
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _passwordController,
+                style: TextStyle(color: bianco),
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  labelStyle: TextStyle(color: bianco),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: bianco),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: bianco),
+                  ),
+                ),
+                obscureText: true,
+              ),
+              SizedBox(height: 24.0),
+              ElevatedButton(
+                // Add login
+                onPressed: _isLoading
+                    ? null
+                    : _login, // _isLoading ? NULL : _login if in Linea se è true fa log
+                child: _isLoading
+                    ? CircularProgressIndicator()
+                    : Text(
+                        'Accedi',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: bianco,
+                ),
+              ),
+              if (_isError) Text('Username o password non validi.'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*Column(
           children: [
             TextField(
               controller: _usernameController,
@@ -72,13 +133,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _isLoading ? null : _login,
+              onPressed: _isLoading ? null : _login, // _isLoading ? NULL : _login if in Linea se è true fa log
               child: _isLoading ? CircularProgressIndicator() : Text('Accedi'),
             ),
             if (_isError) Text('Username o password non validi.'),
           ],
-        ),
-      ),
-    );
-  }
-}
+        ),*/

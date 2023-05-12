@@ -26,12 +26,12 @@ int indexState = 0;
 
 // COLORI DELLA APPLICAZIONE
 
-Color nero = Color(0);
+Color nero = Colors.black;
 Color bianco = Color.fromARGB(255, 245, 245, 247);
 
 //SERVER INDIRIZZo
 
-String url = loophole;
+String url = localhost;
 String loophole = 'https://ristorante.loophole.site';
 String localhost = 'http://10.0.2.2:4000';
 

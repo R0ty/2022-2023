@@ -4,8 +4,10 @@ import '../model/constant.dart';
 class BottomAdd extends StatefulWidget {
   final String name;
 
-  BottomAdd({Key? key, required this.name, })
-      : super(key: key);
+  BottomAdd({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
 
   @override
   BottomAdd2 createState() => BottomAdd2();
@@ -16,23 +18,25 @@ class BottomAdd2 extends State<BottomAdd> {
   TextEditingController editingController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) => ElevatedButton(
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.grey.shade200),
-        onPressed: () {
-          setState(() {
-            change1();
-          });
-        },
-        onLongPress: () => openDialog(context),
-        child: Container(
-          color: Colors.grey.shade200,
-          padding: EdgeInsets.only(bottom: 20.0),
-          child: Card(
-            child: Text(widget.name,
-                style: TextStyle(
-                    color: Colors.black,
-                    backgroundColor: Colors.grey.shade200)),
-          ),
+  Widget build(BuildContext context) => SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: bianco),
+              onPressed: () {
+                setState(() {
+                  change1();
+                });
+              },
+              onLongPress: () => openDialog(context),
+              child: Text(widget.name,
+                  style:
+                      TextStyle(color: Colors.black, backgroundColor: bianco)),
+            ),
+          ],
         ),
       );
 

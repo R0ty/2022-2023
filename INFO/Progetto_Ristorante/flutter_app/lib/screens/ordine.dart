@@ -18,7 +18,11 @@ class _Ordini extends State<Ordini> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _buildProductsList(),
+            Container(
+              
+              child: _buildProductsList(),
+              ),
+            
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

@@ -21,8 +21,6 @@ class ProductsPageState extends State<ProductsPage> {
     var response = await http.get(Uri.parse('$url${widget.getter}'));
     if (response.statusCode == 200) {
       var jsonList = json.decode(response.body) as List<dynamic>;
-      print(indexState);
-      print(bo);
       // BLOCCO PER IL CURRENT INDEX
       if (indexState != 5 && bo == true) {
         setState(() {
@@ -37,7 +35,7 @@ class ProductsPageState extends State<ProductsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildProductsList();
+    return Container(color: nero, child: _buildProductsList());
   }
 
   Widget _buildProductsList() {
