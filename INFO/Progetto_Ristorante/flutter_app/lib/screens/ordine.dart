@@ -1,4 +1,3 @@
-
 import 'package:flutter_app/model/constant.dart';
 import 'package:flutter/material.dart';
 import '../components/botton.dart';
@@ -13,38 +12,38 @@ class _Ordini extends State<Ordini> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              
+    return Container(
+      color: Colors.black,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          SingleChildScrollView(
+            child: Container(
+              width: 300,
+              height: 400,
               child: _buildProductsList(),
-              ),
-            
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                TextButton(
-                    child: Text(
-                      'Invia',
-                    ),
-                    onPressed: () {
-                      // BOTTONE CHE INVIA TUTTO
-                      setState(() {
-                        
-                        postRequest(context);
-                      });
-                      
-                    }),
-              ],
             ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: TextButton(
+                child: Text(
+                  'Invia',
+                  style: TextStyle(color: bianco, fontSize: 20),
+                ),
+                onPressed: () {
+                  // BOTTONE CHE INVIA TUTTO
+                  setState(() {
+                    postRequest(context);
+                  });
+                }),
+          ),
+        ],
       ),
     );
   }

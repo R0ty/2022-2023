@@ -18,28 +18,22 @@ class BottomAdd2 extends State<BottomAdd> {
   TextEditingController editingController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: bianco),
-              onPressed: () {
-                setState(() {
-                  change1();
-                });
-              },
-              onLongPress: () => openDialog(context),
-              child: Text(widget.name,
-                  style:
-                      TextStyle(color: Colors.black, backgroundColor: bianco)),
-            ),
-          ],
+  Widget build(BuildContext context) => Container(
+        color: bianco,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: bianco),
+          onPressed: () {
+            setState(() {
+              change1();
+            });
+          },
+          onLongPress: () => openDialog(context),
+          child: Text(widget.name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.black, backgroundColor: bianco, fontSize: 20)),
         ),
       );
-
   // finestra che si apre quando tengo premuto il tasto
 
   Future openDialog(var context) => showDialog(
@@ -106,29 +100,42 @@ class Piatto extends StatelessWidget {
         width: 5,
         height: 50,
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: bianco),
           onPressed: () {},
-          child: Text(name),
+          child: Text(
+            name,
+            style: TextStyle(color: nero),
+          ),
         ),
       );
     }
     //PIATTO CON CORREZION
     else {
       return SizedBox(
-        width: 5,
-        height: 50,
-        child: Row(
-          children: [
-            SizedBox(
-              width: 20,
+          width: 5,
+          height: 50,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: bianco),
+            onPressed: () {},
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  name,
+                  style: TextStyle(color: nero),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  "correzione: $correzione",
+                  style: TextStyle(color: nero),
+                ),
+              ],
             ),
-            Text(name),
-            SizedBox(
-              width: 20,
-            ),
-            Text("correzione: $correzione"),
-          ],
-        ),
-      );
+          ));
     }
   }
 }

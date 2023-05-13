@@ -43,15 +43,19 @@ class ProductsPageState extends State<ProductsPage> {
     if (_products.isEmpty) {
       return Center(child: CircularProgressIndicator());
     } else {
-      return ListView.builder(
-        itemCount: _products.length,
-        itemBuilder: (context, index) {
-          final product = _products[index];
-          return BottomAdd(
-            name: product.name,
-          );
-        },
-      );
+      return GridView.builder(
+          itemCount: _products.length,
+          itemBuilder: (context, index) {
+            final product = _products[index];
+            return BottomAdd(
+              name: product.name,
+            );
+          },
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // Imposta il numero di colonne
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
+          ));
     }
   }
 }
