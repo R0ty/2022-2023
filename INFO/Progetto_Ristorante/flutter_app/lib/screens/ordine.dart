@@ -12,38 +12,45 @@ class _Ordini extends State<Ordini> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 50,
-          ),
-          SingleChildScrollView(
-            child: Container(
-              width: 400,
-              height: 700,
-              child: _buildProductsList(),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Center(
-            child: TextButton(
-                child: Text(
-                  'Invia',
-                  style: TextStyle(color: bianco, fontSize: 20),
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Container(
+            color: Colors.black,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: constraints.maxHeight * 0.05,
                 ),
-                onPressed: () {
-                  // BOTTONE CHE INVIA TUTTO
-                  setState(() {
-                    postRequest(context);
-                  });
-                }),
-          ),
-        ],
+                SingleChildScrollView(
+                  child: Container(
+                    width: constraints.maxWidth * 0.8,
+                    height: constraints.maxHeight * 0.8,
+                    child: _buildProductsList(),
+                  ),
+                ),
+                SizedBox(
+                  height: constraints.maxHeight * 0.02,
+                ),
+                Center(
+                  child: TextButton(
+                    child: Text(
+                      'Invia',
+                      style: TextStyle(color: bianco, fontSize: 20),
+                    ),
+                    onPressed: () {
+                      // BOTTONE CHE INVIA TUTTO
+                      setState(() {
+                        postRequest(context);
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

@@ -31,7 +31,7 @@ Color bianco = Color.fromARGB(255, 245, 245, 247);
 
 //SERVER INDIRIZZo
 
-String url = loophole;
+String url = localhost;
 String loophole = 'https://ristorante.loophole.site';
 String localhost = 'http://10.0.2.2:4000';
 
@@ -85,8 +85,8 @@ Future<void> postRequest(var context) async {
               actions: [
                 TextButton(
                   child: Text('OK'),
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Tavolo(),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Tavolo(),
                   )),
                 ),
               ],

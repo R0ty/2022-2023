@@ -103,7 +103,9 @@ class _PiattoState extends State<Piatto> {
     return Column(children: [
       SizedBox(
         height: 20,
-        child: Divider(),
+        child: Divider(
+          color: bianco,
+        ),
       ),
       Container(
         child: ElevatedButton(
