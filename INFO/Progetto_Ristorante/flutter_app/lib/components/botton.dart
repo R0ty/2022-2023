@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import '../model/constant.dart';
 
 class BottomAdd extends StatefulWidget {
@@ -80,9 +81,9 @@ class BottomAdd2 extends State<BottomAdd> {
   }
 }
 
-// BOTTONE PER ORDINARE
+// PIATTI VISUALIZZATI NELLA PAGINE DELL ORDINAZIONE FINALE
 
-class Piatto extends StatelessWidget {
+class Piatto extends StatefulWidget {
   final String name;
   final String correzione;
 
@@ -93,49 +94,59 @@ class Piatto extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<Piatto> createState() => _PiattoState();
+}
+
+class _PiattoState extends State<Piatto> {
+  @override
   Widget build(BuildContext context) {
-    //PIATTO SENZA CORREZIONE
-    if (correzione == "") {
-      return SizedBox(
-        width: 5,
-        height: 50,
+    return Column(children: [
+      SizedBox(
+        height: 20,
+        child: Divider(),
+      ),
+      Container(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: bianco),
           onPressed: () {},
-          child: Text(
-            name,
-            style: TextStyle(color: nero),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              _correzzione(),
+              SizedBox(
+                height: 10,
+              )
+            ],
           ),
         ),
+      ),
+    ]);
+  }
+
+  Widget _correzzione() {
+    if (widget.correzione == "") {
+      return Text(
+        widget.name,
+        style: TextStyle(color: nero),
       );
-    }
-    //PIATTO CON CORREZION
-    else {
-      return SizedBox(
-          width: 5,
-          height: 50,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: bianco),
-            onPressed: () {},
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  name,
-                  style: TextStyle(color: nero),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "correzione: $correzione",
-                  style: TextStyle(color: nero),
-                ),
-              ],
-            ),
-          ));
+    } else {
+      return Column(
+        children: [
+          Text(
+            widget.name,
+            style: TextStyle(color: nero),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            "Correzzione: ${widget.correzione}",
+            style: TextStyle(color: nero),
+          )
+        ],
+      );
     }
   }
 }

@@ -57,5 +57,5 @@ class ProductsPageState extends State<ProductsPage> {
             crossAxisSpacing: 10.0,
           ));
     }
-  }
+  } 
 }

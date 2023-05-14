@@ -18,12 +18,12 @@ class _Ordini extends State<Ordini> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 20,
+            height: 50,
           ),
           SingleChildScrollView(
             child: Container(
-              width: 300,
-              height: 400,
+              width: 400,
+              height: 700,
               child: _buildProductsList(),
             ),
           ),
