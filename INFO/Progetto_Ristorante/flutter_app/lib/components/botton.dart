@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import '../model/constant.dart';
+
 
 class BottomAdd extends StatefulWidget {
   final String name;
@@ -86,6 +86,7 @@ class Piatto extends StatefulWidget {
   final String name;
   final String correzione;
   final int index;
+
   Piatto(
       {Key? key,
       required this.name,
@@ -106,6 +107,7 @@ class _PiattoState extends State<Piatto> {
       SizedBox(
         height: 20,
         child: Divider(
+          thickness: 4,
           color: bianco,
         ),
       ),
@@ -154,6 +156,7 @@ class _PiattoState extends State<Piatto> {
     }
   }
 
+  // OPEN DLALOG PER ELIMINARE ; MODIFICARE IL DATO
   Future openDialog(var context) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -163,13 +166,19 @@ class _PiattoState extends State<Piatto> {
           ),
           actions: [
             TextButton(
+              onPressed: () => setState(() {
+                deleteObject(widget.index);
+                Navigator.of(context).pop();
+              }),
+              child: Text('Delete'),
+            ),
+            TextButton(
                 child: Text('Cancel'),
                 onPressed: () => Navigator.of(context).pop()),
             TextButton(
               child: Text('OK'),
               onPressed: () => setState(() {
                 newCorrezzione = editingController.text;
-                print('$indexState');
                 modifyCorrezione(widget.index, newCorrezzione);
                 Navigator.of(context).pop();
                 newCorrezzione = "";
@@ -181,5 +190,12 @@ class _PiattoState extends State<Piatto> {
   void modifyCorrezione(int index, String newCorrezione) {
     // Effettua la modifica nella tua lista di oggetti
     items[index].correzione = newCorrezione;
+  }
+
+  void deleteObject(int index) {
+    setState(() {
+      // Rimuovi l'oggetto dalla lista utilizzando l'indice
+      items.removeAt(index);
+    });
   }
 }

@@ -19,7 +19,7 @@ Tutte le immagini e i loghi sono contenuti nella cartella assets
 
 # COSE DA FARE
 
-Da modificare lista dei tavoli senza farla alzare e scendere 
+Da modificare lista dei tavoli senza farla alzare e scendere
 Da modificare tutte le misure per far si che le si utilizzano in base al telefono
-Aggiungere la funzione di modifica sui bottoni del ordine 
+Aggiungere la funzione di elimina sui bottoni del ordine 
 Aggiungere la pagina per la registrazione
