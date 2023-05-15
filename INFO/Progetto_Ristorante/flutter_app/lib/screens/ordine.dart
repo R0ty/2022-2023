@@ -62,7 +62,7 @@ class _Ordini extends State<Ordini> {
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        return Piatto(name: item.piatto, correzione: item.correzione);
+        return Piatto(name: item.piatto, correzione: item.correzione,index: index, );
       },
     );
   }

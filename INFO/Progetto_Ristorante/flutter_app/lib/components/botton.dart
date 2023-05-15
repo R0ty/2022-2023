@@ -54,7 +54,6 @@ class BottomAdd2 extends State<BottomAdd> {
               onPressed: () => setState(() {
                 correzione = editingController.text;
                 change();
-                print('$indexState');
                 submit(context);
                 correzione = "";
               }),
@@ -86,18 +85,21 @@ class BottomAdd2 extends State<BottomAdd> {
 class Piatto extends StatefulWidget {
   final String name;
   final String correzione;
-
-  Piatto({
-    Key? key,
-    required this.name,
-    required this.correzione,
-  }) : super(key: key);
+  final int index;
+  Piatto(
+      {Key? key,
+      required this.name,
+      required this.correzione,
+      required this.index})
+      : super(key: key);
 
   @override
   State<Piatto> createState() => _PiattoState();
 }
 
 class _PiattoState extends State<Piatto> {
+  String newCorrezzione = "";
+  TextEditingController editingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -110,7 +112,7 @@ class _PiattoState extends State<Piatto> {
       Container(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: bianco),
-          onPressed: () {},
+          onPressed: () => openDialog(context),
           child: Column(
             children: [
               SizedBox(
@@ -150,5 +152,34 @@ class _PiattoState extends State<Piatto> {
         ],
       );
     }
+  }
+
+  Future openDialog(var context) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Correzione'),
+          content: TextField(
+            controller: editingController,
+          ),
+          actions: [
+            TextButton(
+                child: Text('Cancel'),
+                onPressed: () => Navigator.of(context).pop()),
+            TextButton(
+              child: Text('OK'),
+              onPressed: () => setState(() {
+                newCorrezzione = editingController.text;
+                print('$indexState');
+                modifyCorrezione(widget.index, newCorrezzione);
+                Navigator.of(context).pop();
+                newCorrezzione = "";
+              }),
+            ),
+          ],
+        ),
+      );
+  void modifyCorrezione(int index, String newCorrezione) {
+    // Effettua la modifica nella tua lista di oggetti
+    items[index].correzione = newCorrezione;
   }
 }
