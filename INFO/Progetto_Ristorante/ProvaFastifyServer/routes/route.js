@@ -1,7 +1,7 @@
 const {pool} = require('../db/dbMenu')
 const {schema} = require('./schemaMenu')
 const {schema2} = require('./schemaOrder')
-const bcrypt = require(bcrypt)
+const bcrypt = require('bcrypt')
 async function poolRoutes (fastify, options) {
 
     fastify.get('/getAntipasti', {schema: schema},async (request, reply) => {
@@ -84,7 +84,7 @@ async function poolRoutes (fastify, options) {
 
       fastify.post('/register/:username/:password', async function (req, res) {
         try {
-            if (req.params.username == "" || req.params.password == "" || req.params.email == "") {
+            if (req.params.username == "" || req.params.password == "") {
                 res.status(401).send({ msg: "Please provide all the required information." });
             } else {
                 
