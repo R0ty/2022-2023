@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../model/constant.dart';
 
-
 class BottomAdd extends StatefulWidget {
   final String name;
 
@@ -163,6 +162,7 @@ class _PiattoState extends State<Piatto> {
           title: Text('Correzione'),
           content: TextField(
             controller: editingController,
+            cursorColor: nero,
           ),
           actions: [
             TextButton(
@@ -170,13 +170,22 @@ class _PiattoState extends State<Piatto> {
                 deleteObject(widget.index);
                 Navigator.of(context).pop();
               }),
-              child: Text('Delete'),
+              child: Text(
+                'Delete',
+                style: TextStyle(color: nero),
+              ),
             ),
             TextButton(
-                child: Text('Cancel'),
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(color: nero),
+                ),
                 onPressed: () => Navigator.of(context).pop()),
             TextButton(
-              child: Text('OK'),
+              child: Text(
+                'OK',
+                style: TextStyle(color: nero),
+              ),
               onPressed: () => setState(() {
                 newCorrezzione = editingController.text;
                 modifyCorrezione(widget.index, newCorrezzione);

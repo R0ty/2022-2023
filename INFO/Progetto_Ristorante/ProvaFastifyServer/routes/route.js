@@ -1,6 +1,7 @@
 const {pool} = require('../db/dbMenu')
 const {schema} = require('./schemaMenu')
 const {schema2} = require('./schemaOrder')
+const bcrypt = require(bcrypt)
 async function poolRoutes (fastify, options) {
 
     fastify.get('/getAntipasti', {schema: schema},async (request, reply) => {
@@ -78,6 +79,36 @@ async function poolRoutes (fastify, options) {
           reply.code(500).send({ message: 'Errore durante l\'inserimento degli oggetti' });
         }
       });
+
+
+
+      fastify.post('/register/:username/:password', async function (req, res) {
+        try {
+            if (req.params.username == "" || req.params.password == "" || req.params.email == "") {
+                res.status(401).send({ msg: "Please provide all the required information." });
+            } else {
+                
+                const { rows: checkUsername } = await client.query(
+                    `SELECT * FROM accounts WHERE username = $1`, [req.params.username],
+                );
+                if (checkUsername && checkUsername.length > 0) {
+                    res.status(500).send({ msg: "Username already in use" });
+                } else {
+                    let hashedPassword = await bcrypt.hash(req.params.password, 10);
+                    const { rows } = await client.query(
+                        `INSERT INTO accounts(username, password,) VALUES ($1, $2)`,
+                         [req.params.username, hashedPassword ],
+                    )
+                    console.log(rows)
+                    res.status(200).send({ msg: "Successfully Registered. Please log in." });
+                }
+            }
+        } catch (error) {
+            throw error
+        }
+    })
+
+
       
 }
 
