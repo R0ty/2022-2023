@@ -9,8 +9,6 @@ class NaviationDrawar extends StatefulWidget {
 }
 
 class NaviationDrawarState extends State<NaviationDrawar> {
-  int currentPageIndex = 0;
-
   List<Widget> _pages = <Widget>[
     new ProductsPage(getter: "/getAntipasti"),
     new ProductsPage(getter: "/getPrimi"),
@@ -22,16 +20,16 @@ class NaviationDrawarState extends State<NaviationDrawar> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: _pages[currentPageIndex],
+        body: _pages[indexState],
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
             setState(() {
-              currentPageIndex = index;
-              indexState = currentPageIndex;
+              indexState = index;
+
               bo = true;
             });
           },
-          selectedIndex: currentPageIndex,
+          selectedIndex: indexState,
           destinations: const <Widget>[
             NavigationDestination(
               selectedIcon: Icon(Icons.add_circle),

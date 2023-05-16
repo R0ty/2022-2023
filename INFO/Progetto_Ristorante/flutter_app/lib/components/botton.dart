@@ -190,7 +190,7 @@ class _PiattoState extends State<Piatto> {
               ),
               onPressed: () => setState(() {
                 deleteObject(widget.index);
-                indexState = 0;
+                indexState = 5;
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => NaviationDrawar()));
               }),

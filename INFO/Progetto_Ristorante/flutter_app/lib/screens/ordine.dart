@@ -34,10 +34,13 @@ class _Ordini extends State<Ordini> {
                   height: constraints.maxHeight * 0.02,
                 ),
                 Center(
-                  child: TextButton(
+                    child: SizedBox(
+                  width: constraints.maxWidth * 0.4,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: bianco),
                     child: Text(
                       'Invia',
-                      style: TextStyle(color: bianco, fontSize: 20),
+                      style: TextStyle(color: nero, fontSize: 25),
                     ),
                     onPressed: () {
                       // BOTTONE CHE INVIA TUTTO
@@ -46,7 +49,7 @@ class _Ordini extends State<Ordini> {
                       });
                     },
                   ),
-                ),
+                )),
               ],
             ),
           );
@@ -62,7 +65,11 @@ class _Ordini extends State<Ordini> {
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        return Piatto(name: item.piatto, correzione: item.correzione,index: index, );
+        return Piatto(
+          name: item.piatto,
+          correzione: item.correzione,
+          index: index,
+        );
       },
     );
   }
