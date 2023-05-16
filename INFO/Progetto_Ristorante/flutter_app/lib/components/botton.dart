@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../model/constant.dart';
+import '../routes.dart';
 
 class BottomAdd extends StatefulWidget {
   final String name;
@@ -189,7 +190,9 @@ class _PiattoState extends State<Piatto> {
               ),
               onPressed: () => setState(() {
                 deleteObject(widget.index);
-                Navigator.of(context).pop();
+                indexState = 0;
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => NaviationDrawar()));
               }),
             ),
             TextButton(

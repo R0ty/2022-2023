@@ -38,25 +38,6 @@ async function poolRoutes (fastify, options) {
         
     })
 
-
-    fastify.get('/utente', async (request, reply) => {
-        const name = request.query.name;
-        const password = request.query.password;
-      
-        // Esegui il controllo delle credenziali dell'utente
-        try {
-          const result = await pool.query('SELECT * FROM camerieri WHERE name = $1 AND password = $2', [name, password]);
-          if (result.rows.length > 0) {
-            reply.send({ autenticato: true });
-          } else {
-            reply.send({ autenticato: false });
-          }
-        } catch (error) {
-          console.error(error);
-          reply.send({ error: 'Si è verificato un errore durante il controllo delle credenziali dell\'utente.' });
-        }
-      });
-
       fastify.post('/ordinazioni', async (request, reply) => {
         try {
           const items = request.body; // Array di oggetti ricevuti dal payload JSON
@@ -79,25 +60,47 @@ async function poolRoutes (fastify, options) {
           reply.code(500).send({ message: 'Errore durante l\'inserimento degli oggetti' });
         }
       });
+      
+      
+    fastify.post('/utente', async (request, reply) => {
+      const {name, password} = request.body ;
+    
+      // Esegui il controllo delle credenziali dell'utente
+      try {
+        const {rows: result} = await pool.query('SELECT * FROM camerieri WHERE name = $1', [name]);
+        if (result.length > 0) {
+          const isMatch = await bcrypt.compare(password, result[0].password
+          )
+          if(isMatch){
+            reply.send({ autenticato: true });
+          }else {
+            reply.send({ autenticato: false });
+          }
+        }else {
+          reply.send({ autenticato: false });
+        }
+      } catch (error) {
+        console.error(error);
+        reply.send({ error: 'Si è verificato un errore durante il controllo delle credenziali dell\'utente.' });
+      }
+    });
 
-
-
-      fastify.post('/register/:username/:password', async function (req, res) {
+      fastify.post('/register/:name/:password', async function (req, res) {
         try {
-            if (req.params.username == "" || req.params.password == "") {
+            if (req.params.name == "" || req.params.password == "") {
                 res.status(401).send({ msg: "Please provide all the required information." });
             } else {
                 
-                const { rows: checkUsername } = await client.query(
-                    `SELECT * FROM accounts WHERE username = $1`, [req.params.username],
+                const { rows: checkUsername } = await pool.query(
+                    `SELECT * FROM camerieri WHERE name = $1`, [req.params.name],
                 );
                 if (checkUsername && checkUsername.length > 0) {
                     res.status(500).send({ msg: "Username already in use" });
                 } else {
                     let hashedPassword = await bcrypt.hash(req.params.password, 10);
-                    const { rows } = await client.query(
-                        `INSERT INTO accounts(username, password,) VALUES ($1, $2)`,
-                         [req.params.username, hashedPassword ],
+                    const { rows } = await pool.query(
+                        `INSERT INTO camerieri(name, password) VALUES ($1, $2)`,
+                         [req.params.name, hashedPassword ],
                     )
                     console.log(rows)
                     res.status(200).send({ msg: "Successfully Registered. Please log in." });

@@ -1,23 +1,21 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/registerPage.dart';
+import 'package:flutter_app/screens/loginPage.dart';
 import '../model/constant.dart';
-import '../screens/tavolo.dart';
 import 'package:http/http.dart' as http;
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _isLoading = false;
   bool _isError = false;
 
-  Future<void> _login() async {
+  Future<void> _register() async {
     setState(() {
       _isLoading = true;
       _isError = false;
@@ -26,26 +24,15 @@ class _LoginPageState extends State<LoginPage> {
     final String name = _nameController.text;
     final String password = _passwordController.text;
 
-    final body = {"name": name, "password": password};
-    var headers = {'Content-Type': 'application/json'};
-
-    final response = await http.post(Uri.parse('$url/utente'),
-        body: jsonEncode(body), headers: headers);
+    final response = await http.post(
+      Uri.parse('$url/register/$name/$password'),
+    );
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      if (data['autenticato'] == true) {
-        // L'utente è stato autenticato correttamente, puoi navigare alla tua pagina principale
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Tavolo()),
-        );
-      } else {
-        // L'utente non è stato autenticato, mostra un messaggio di errore
-        setState(() {
-          _isLoading = false;
-          _isError = true;
-        });
-      }
+      // L'utente è stato autenticato correttamente, puoi navigare alla tua pagina principale
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
     } else {
       // Si è verificato un errore durante la richiesta HTTP, mostra un messaggio di errore
       setState(() {
@@ -60,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Login', style: TextStyle(fontSize: 50)),
+        title: Text('Register', style: TextStyle(fontSize: 50)),
         backgroundColor: Colors.black,
       ),
       body: Container(
@@ -104,25 +91,17 @@ class _LoginPageState extends State<LoginPage> {
                 // Add login
                 onPressed: _isLoading
                     ? null
-                    : _login, // _isLoading ? NULL : _login if in Linea se è true fa log
+                    : _register, // _isLoading ? NULL : _register if in Linea se è true fa log
                 child: _isLoading
                     ? CircularProgressIndicator()
                     : Text(
-                        'Accedi',
+                        'Registrati',
                         style: TextStyle(color: Colors.black),
                       ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: bianco,
                 ),
               ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: bianco),
-                  onPressed: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => RegisterPage())),
-                  child: Text(
-                    'Registrati',
-                    style: TextStyle(color: nero),
-                  )),
               if (_isError) Text('Username o password non validi.'),
             ],
           ),
