@@ -27,7 +27,7 @@ async function poolRoutes (fastify, options) {
         reply.send(res.rows)
         
     })
-    fastify.get('/geBevande', {schema: schema},async (request, reply) => {
+    fastify.get('/getBevande', {schema: schema},async (request, reply) => {
         const res =await pool.query('SELECT * FROM bevande')
         reply.send(res.rows)
         
