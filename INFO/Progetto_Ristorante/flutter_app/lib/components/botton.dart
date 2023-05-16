@@ -45,11 +45,17 @@ class BottomAdd2 extends State<BottomAdd> {
           ),
           actions: [
             TextButton(
-              child: Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: nero),
+              ),
               onPressed: () => submit(context),
             ),
             TextButton(
-              child: Text('OK'),
+              child: Text(
+                'OK',
+                style: TextStyle(color: nero),
+              ),
               onPressed: () => setState(() {
                 correzione = editingController.text;
                 change();
@@ -71,6 +77,8 @@ class BottomAdd2 extends State<BottomAdd> {
           piatto: widget.name, correzione: ('$correzione'), tavolo: tavolo));
     });
   }
+
+  //ITEM AGGIUNTO CON IL CLICK
 
   void change1() {
     setState(() {
@@ -130,25 +138,27 @@ class _PiattoState extends State<Piatto> {
     ]);
   }
 
+  //COMPOSIZIONE DELL PIATTO IN BASE AL SUO CORREZZIONE
+
   Widget _correzzione() {
     if (widget.correzione == "") {
       return Text(
         widget.name,
-        style: TextStyle(color: nero),
+        style: TextStyle(color: nero, fontSize: 20),
       );
     } else {
       return Column(
         children: [
           Text(
             widget.name,
-            style: TextStyle(color: nero),
+            style: TextStyle(color: nero, fontSize: 20),
           ),
           SizedBox(
             height: 10,
           ),
           Text(
             "Correzzione: ${widget.correzione}",
-            style: TextStyle(color: nero),
+            style: TextStyle(color: nero, fontSize: 20),
           )
         ],
       );
@@ -156,6 +166,7 @@ class _PiattoState extends State<Piatto> {
   }
 
   // OPEN DLALOG PER ELIMINARE ; MODIFICARE IL DATO
+
   Future openDialog(var context) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -166,21 +177,21 @@ class _PiattoState extends State<Piatto> {
           ),
           actions: [
             TextButton(
-              onPressed: () => setState(() {
-                deleteObject(widget.index);
-                Navigator.of(context).pop();
-              }),
-              child: Text(
-                'Delete',
-                style: TextStyle(color: nero),
-              ),
-            ),
-            TextButton(
                 child: Text(
                   'Cancel',
                   style: TextStyle(color: nero),
                 ),
                 onPressed: () => Navigator.of(context).pop()),
+            TextButton(
+              child: Text(
+                'Delete',
+                style: TextStyle(color: nero),
+              ),
+              onPressed: () => setState(() {
+                deleteObject(widget.index);
+                Navigator.of(context).pop();
+              }),
+            ),
             TextButton(
               child: Text(
                 'OK',
@@ -196,11 +207,14 @@ class _PiattoState extends State<Piatto> {
           ],
         ),
       );
+
+  //METODO UTILIZZATO PER MODIFICARE
   void modifyCorrezione(int index, String newCorrezione) {
     // Effettua la modifica nella tua lista di oggetti
     items[index].correzione = newCorrezione;
   }
 
+  // METODO UTILIZZATO PER ELIMINARE
   void deleteObject(int index) {
     setState(() {
       // Rimuovi l'oggetto dalla lista utilizzando l'indice

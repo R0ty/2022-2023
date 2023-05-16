@@ -32,6 +32,8 @@ class _TavoloState extends State<Tavolo> {
                 SizedBox(
                   width: 100,
                   child: DropdownButtonFormField<String>(
+                    menuMaxHeight: 300,
+                    alignment: Alignment.center,
                     isExpanded: true,
                     isDense: true,
                     dropdownColor: nero,
@@ -49,20 +51,21 @@ class _TavoloState extends State<Tavolo> {
                       color: bianco,
                     ),
                     value: dropdownvalue,
-                    elevation: 16,
-                    style: TextStyle(fontSize: 30, color: bianco),
+                    elevation: 10,
+                    style: TextStyle(fontSize: 25, color: bianco),
                     onChanged: (String? value) {
                       // This is called when the user selects an item.
                       setState(() {
                         dropdownvalue = value!;
                         tavolo = value;
-                        print(tavolo);
                       });
                     },
                     items: list
                         .map((item) => DropdownMenuItem<String>(
                               value: item,
-                              child: Text('$item'),
+                              child: Text(
+                                '$item',
+                              ),
                             ))
                         .toList(),
                   ),
@@ -80,7 +83,7 @@ class _TavoloState extends State<Tavolo> {
                 },
                 child: Text(
                   ' + Nuovo Ordine',
-                  style: TextStyle(fontSize: 18, color: nero),
+                  style: TextStyle(fontSize: 20, color: nero),
                 ))
           ],
         )),
