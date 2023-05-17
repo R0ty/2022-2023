@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zucc_app/contatti.dart';
+import 'posizione.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Zucc_App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -55,6 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 50,
         ),
         Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue.shade400, width: 5)),
           alignment: Alignment.center,
           height: 350,
           width: 350,
@@ -79,8 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 50,
         ),
         Container(
-          width: 300,
-          color: Colors.blue.shade400,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue.shade400, width: 1)),
           child: Column(
             children: [
               SizedBox(
@@ -94,19 +99,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     size: Size(100, 100),
                     child: ClipRect(
                       child: Material(
-                        color: Colors.blue.shade400,
                         child: InkWell(
                           onTap: () {},
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Icon(
-                                Icons.newspaper,
+                                Icons.email,
+                                color: Colors.blue.shade400,
                                 size: 50,
                               ), // <-- Icon
                               Text(
                                 "Circolari",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.blue.shade400),
                               ), // <-- Text
                             ],
                           ),
@@ -116,9 +122,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
 
                   //News
-                  SizedBox(
-                    width: 40,
-                  ),
                   SizedBox.fromSize(
                     size: Size(100, 100),
                     child: ClipRect(
@@ -129,13 +132,42 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              /*Icon(
-                            CupertinoIcons.news,
-                            size: 50,
-                          ),*/ // <-- Icon
+                              Icon(
+                                Icons.newspaper,
+                                size: 50,
+                                color: Colors.white,
+                              ), // <-- Icon
                               Text(
                                 "News",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ), // <-- Text
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox.fromSize(
+                    size: Size(100, 100),
+                    child: ClipRect(
+                      child: Material(
+                        child: InkWell(
+                          onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => Posizione())),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.fmd_good_rounded,
+                                color: Colors.blue.shade400,
+                                size: 50,
+                              ), // <-- Icon
+                              Text(
+                                "Posizione",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.blue.shade400),
                               ), // <-- Text
                             ],
                           ),
@@ -164,10 +196,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               Icon(
                                 Icons.contact_page_outlined,
                                 size: 50,
+                                color: Colors.white,
                               ), // <-- Icon
                               Text(
                                 "Contatti",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
                               ), // <-- Text
                             ],
                           ),
@@ -177,8 +211,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
 
                   //Calendario
-                  SizedBox(
-                    width: 40,
+
+                  SizedBox.fromSize(
+                    size: Size(100, 100),
+                    child: ClipRect(
+                      child: Material(
+                        child: InkWell(
+                          onTap: () => _launchUrl(Uri.parse('https://www.itiszuccante.edu.it/printpdf/372')),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.calendar_month_outlined,
+                                size: 50,
+                                color: Colors.blue.shade400,
+                              ), // <-- Icon
+                              Text(
+                                "Calendario",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.blue.shade400),
+                              ), // <-- Text
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox.fromSize(
                     size: Size(100, 100),
@@ -186,19 +243,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Material(
                         color: Colors.blue.shade400,
                         child: InkWell(
-                          onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ContattiPage())),
+                          onTap: () => _launchUrl(
+                              Uri.parse('https://www.itiszuccante.edu.it/')),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Icon(
-                                Icons.calendar_month_outlined,
+                                Icons.web,
                                 size: 50,
+                                color: Colors.white,
                               ), // <-- Icon
                               Text(
-                                "Calendario",
-                                style: TextStyle(fontSize: 20),
+                                "WEB",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
                               ), // <-- Text
                             ],
                           ),
@@ -215,4 +273,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ]));
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
 }
