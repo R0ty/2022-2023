@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:io';
-import 'package:open_file/src/platform/open_file.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zucc_app/circolari.dart';
 import 'package:zucc_app/contatti.dart';
-import 'posizione.dart';
+import 'package:zucc_app/news.dart';
 
 void main() {
   runApp(const MyApp());
@@ -106,7 +103,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: ClipRect(
                         child: Material(
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => Circolari())),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -135,7 +134,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Material(
                           color: Colors.blue.shade400,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => News())),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -160,10 +161,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: ClipRect(
                         child: Material(
                           child: InkWell(
-                            onTap: () => openFile(
-                                url:
-                                    'https://www.itiszuccante.edu.it/sites/default/files/page/2022/classi_dal_28_novembre.pdf',
-                                fileName: 'orario.pdf'),
+                            onTap: () => _launchUrl(Uri.parse(
+                                'https://www.itiszuccante.edu.it/orario-delle-lezioni-2022-23')),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -288,38 +287,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _launchUrl(Uri url) async {
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
-    }
-  }
-
-  Future openFile({required String url, required String fileName}) async {
-    final file = await downloadFile(url, fileName!);
-
-    if (file == null) return;
-
-    print('Path : ${file.path}');
-    OpenFile.open(file.path);
-  }
-
-  //Download in a private folder not to visibile for user
-  Future<File?> downloadFile(String url, String name) async {
-    final appStorage = await getApplicationDocumentsDirectory();
-    final file = File('${appStorage.path}/$name');
-    try {
-      final response = await Dio().get(
-        url,
-        options: Options(
-          responseType: ResponseType.bytes,
-          followRedirects: false,
-          receiveTimeout: Duration(seconds: 0),
-        ),
-      );
-
-      final raf = file.openSync(mode: FileMode.write);
-      raf.writeFromSync(response.data);
-      await raf.close();
-      return file;
-    } catch (e) {
-      return null;
     }
   }
 }
