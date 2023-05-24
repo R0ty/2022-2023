@@ -6,7 +6,6 @@ import 'package:zucc_app/main.dart';
 
 class Circolari extends StatefulWidget {
   const Circolari({super.key});
-
   @override
   State<Circolari> createState() => _CircolariState();
 }
@@ -46,7 +45,7 @@ class _CircolariState extends State<Circolari> {
         .map((element) => element.innerHtml.trim())
         .toList();
 
-    final idDoc = html
+    final documenti = html
         .querySelectorAll('td.cell-border[colspan="5"] > div.download-file')
         .map((element) => element.attributes['id_doc'] ?? '')
         .toList();
@@ -56,13 +55,13 @@ class _CircolariState extends State<Circolari> {
     var selectedDoc = 0;
     var swapAllegati = [];
     for (final allegato in allegati) {
-      if (idDoc.contains(allegato.attributes['id_doc'])) {
-        selectedDoc =
-            idDoc.indexOf(allegato.attributes['id_doc']!); // prendo l'indice
+      if (documenti.contains(allegato.attributes['id_doc'])) {
+        selectedDoc = documenti
+            .indexOf(allegato.attributes['id_doc']!); // prendo l'indice
         objAllegati[selectedDoc] = swapAllegati;
         swapAllegati = [];
       }
-      if (!idDoc.contains(allegato.attributes['id_doc'])) {
+      if (!documenti.contains(allegato.attributes['id_doc'])) {
         swapAllegati
             .add({'name': allegato.text, 'id': allegato.attributes['id_doc']});
       }
@@ -76,18 +75,16 @@ class _CircolariState extends State<Circolari> {
             categoria: categoria[index],
             pubblicato: pubblicato[index],
             validoFino: validoFino[index],
-            documenti: idDoc[index],
+            documenti: documenti[index],
             allegati: objAllegati[index],
-            id: idDoc[index]),
+            id: documenti[index]),
       );
     });
   }
 
-  Future<void> _launchUrl(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      print("cant\'t launch url");
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
     }
   }
 
@@ -115,8 +112,8 @@ class _CircolariState extends State<Circolari> {
                     icon: Icon(Icons.download),
                     onPressed: () {
                       print(circolare.documenti);
-                      _launchUrl(
-                          'https://web.spaggiari.eu/sdg/app/default/view_documento.php?a=akVIEW_FROM_ID&id_documento=${circolare.documenti}&sede_codice=VEIT0007');
+                      _launchUrl(Uri.parse(
+                          'https://web.spaggiari.eu/sdg/app/default/view_documento.php?a=akVIEW_FROM_ID&id_documento=${circolare.documenti}&sede_codice=VEIT0007'));
                     },
                   ),
                   title: Text(
@@ -151,8 +148,8 @@ class _CircolariState extends State<Circolari> {
                               leading: Icon(Icons.attachment),
                               title: Text(circolare.allegati[index]['name']),
                               onTap: () {
-                                final url =
-                                    'https://web.spaggiari.eu/sdg/app/default/view_documento.php?a=akVIEW_FROM_ID&id_documento=${circolare.allegati[index]['id']}&sede_codice=VEIT0007';
+                                final url = Uri.parse(
+                                    'https://web.spaggiari.eu/sdg/app/default/view_documento.php?a=akVIEW_FROM_ID&id_documento=${circolare.allegati[index]['id']}&sede_codice=VEIT0007');
                                 _launchUrl(url);
                               },
                             );

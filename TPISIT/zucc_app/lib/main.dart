@@ -6,9 +6,8 @@ import 'package:zucc_app/circolari.dart';
 import 'package:zucc_app/contatti.dart';
 import 'package:zucc_app/news.dart';
 
-void main() {
+void main() =>
   runApp(const MyApp());
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

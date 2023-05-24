@@ -1,95 +1,158 @@
-/*filzuccapi.piovonoofferte.it
-/news
-*/
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
+import 'package:html/dom.dart' as dom;
 import 'package:url_launcher/url_launcher.dart';
 
 class News extends StatefulWidget {
-  const News({super.key});
-
   @override
-  State<News> createState() => _NewsState();
+  _NewsState createState() => _NewsState();
 }
 
 class _NewsState extends State<News> {
-  // ignore: unused_field
-  List<NewsItem> _news = [];
+  List<Notizia> notizie = [];
 
-  Future<void> getNewsFromServer() async {
-    debugPrint('yes');
-    final response =
-        await Dio().get('https://filzuccapi.piovonoofferte.it/news');
-    debugPrint(response.toString());
-    if (response.statusCode == 200) {
-      var jsonList = json.decode(response.data) as List<dynamic>;
-      debugPrint('no');
-      setState(() {
-        _news = jsonList.map((json) => NewsItem.fromJson(json)).toList();
+  @override
+  void initState() {
+    super.initState();
+    getWebsiteData();
+  }
+
+  Future getWebsiteData() async {
+    final url = Uri.parse("https://www.itiszuccante.edu.it/categoria/news");
+    final response = await http.get(url);
+    dom.Document html = dom.Document.html(response.body);
+
+    final elements = html.querySelectorAll('.views-row');
+
+    var news = [];
+
+    for (final element in elements) {
+      final titleElement = element.querySelector('.field-content > h1');
+      final title = titleElement?.text ?? '';
+
+      final imageElement = element.querySelector('.views-field-body img');
+      final imageUrl = imageElement?.attributes['src'] ?? '';
+
+      final dateElement = element.querySelector('.views-field-created .field-content');
+      final date = dateElement?.text ?? '';
+
+      final bodyElement = element.querySelector('.views-field-body')!;
+      final paragrafo = bodyElement.getElementsByTagName('p').map((p) => p.text.trim()).join('\n');
+
+      final urlElement = element.querySelector('.views-field-view-node a');
+      final url = urlElement?.attributes['href'];
+
+      news.add({
+        'titolo':title,
+        'immagine':imageUrl,
+        'data':date,
+        'paragrafo':paragrafo,
+        'url':url
       });
+    }
+
+    setState(() {
+      notizie = List.generate(
+        news.length,
+        (index) => Notizia(
+          titolo: news[index]['titolo'],
+          immagini: news[index]['immagine'],
+          sito: news[index]['url'],
+          pubblicazione: news[index]['data'],
+          paragrafo: news[index]['paragrafo'],
+        ),
+      );
+    });
+  }
+
+  Future<void> _launcherUri(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
     } else {
-      throw Exception('Failed to load News');
+      print("cant\'t launch url");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: _buildProductsList(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("News"),
+        
+      ),
+      body: ListView.builder(
+        itemCount: notizie.length,
+        itemBuilder: (context, index) {
+          final notizia = notizie[index];
+          return GestureDetector(
+            onTap: () {
+              _launcherUri('https://www.itiszuccante.edu.it/${notizia.sito}');
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        notizia.titolo,
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+            
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      child: Text(
+                        "Pubblicata il ${notizia.pubblicazione} \n${notizia.paragrafo}" ,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 10 / 100
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
-
-  Widget _buildProductsList() {
-    getNewsFromServer();
-    if (_news.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
-    } else {
-      return LayoutBuilder(
-          builder: ((context, constraints) => ListView.builder(
-                itemCount: _news.length,
-                itemBuilder: (context, index) {
-                  final news = _news[index];
-                  return TextButton(
-                      onPressed: () => _launchUrl(Uri.parse(news.link)),
-                      child: Column(
-                        children: [
-                          Container(
-                            color: Colors.blue.shade400,
-                            child: Text(news.title),
-                          ),
-                          Divider(height: constraints.maxHeight * 0.02),
-                          Text(news.body),
-                        ],
-                      ));
-                },
-              )));
-    }
-  }
-
-  Future<void> _launchUrl(Uri url) async {
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
-    }
-  }
+  
 }
 
-class NewsItem {
-  final String title;
-  final String date;
-  final String body;
-  final String link;
 
-  NewsItem(
-      {required this.title,
-      required this.date,
-      required this.body,
-      required this.link});
+class Notizia{
+  final String titolo;
+  final String sito;
+  final String pubblicazione;
+  final String paragrafo;
 
-  static NewsItem fromJson(json) => NewsItem(
-      title: json['title'],
-      date: json['date'],
-      body: json['body'],
-      link: json['link']);
+  const Notizia({
+    required this.titolo,
+    required this.sito,
+    required this.pubblicazione,
+    required this.paragrafo, required immagini,
+  });
 }
