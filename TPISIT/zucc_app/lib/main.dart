@@ -154,13 +154,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
+
+                    // ORARIO
+
                     SizedBox.fromSize(
                       size: Size(110, 110),
                       child: ClipRect(
                         child: Material(
                           child: InkWell(
-                            onTap: () => _launchUrl(Uri.parse(
-                                'https://www.itiszuccante.edu.it/orario-delle-lezioni-2022-23')),
+                            onTap: () => _launcherUri(
+                                'https://www.itiszuccante.edu.it/sites/default/files/page/2022/classi_dal_28_novembre.pdf'),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -286,5 +289,9 @@ class _MyHomePageState extends State<MyHomePage> {
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
     }
+  }
+
+  Future<void> _launcherUri(url) async {
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
 }

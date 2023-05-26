@@ -9,7 +9,7 @@ class News extends StatefulWidget {
 }
 
 class _NewsState extends State<News> {
-  List<Notizia> notizie = [];
+  List<Notizia> _news = [];
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _NewsState extends State<News> {
     }
 
     setState(() {
-      notizie = List.generate(
+      _news = List.generate(
         news.length,
         (index) => Notizia(
           titolo: news[index]['titolo'],
@@ -80,9 +80,9 @@ class _NewsState extends State<News> {
         title: Text("News"),
       ),
       body: ListView.builder(
-        itemCount: notizie.length,
+        itemCount: _news.length,
         itemBuilder: (context, index) {
-          final notizia = notizie[index];
+          final notizia = _news[index];
           return GestureDetector(
             onTap: () {
               _launcherUri('https://www.itiszuccante.edu.it/${notizia.sito}');
