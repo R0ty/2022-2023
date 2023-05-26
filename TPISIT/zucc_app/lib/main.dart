@@ -6,8 +6,7 @@ import 'package:zucc_app/circolari.dart';
 import 'package:zucc_app/contatti.dart';
 import 'package:zucc_app/news.dart';
 
-void main() =>
-  runApp(const MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -104,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: InkWell(
                             onTap: () => Navigator.of(context).push(
                                 MaterialPageRoute(
-                                    builder: (context) => Circolari())),
+                                    builder: (context) => NoticeBoard())),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[

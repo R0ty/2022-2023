@@ -33,21 +33,25 @@ class _NewsState extends State<News> {
       final imageElement = element.querySelector('.views-field-body img');
       final imageUrl = imageElement?.attributes['src'] ?? '';
 
-      final dateElement = element.querySelector('.views-field-created .field-content');
+      final dateElement =
+          element.querySelector('.views-field-created .field-content');
       final date = dateElement?.text ?? '';
 
       final bodyElement = element.querySelector('.views-field-body')!;
-      final paragrafo = bodyElement.getElementsByTagName('p').map((p) => p.text.trim()).join('\n');
+      final paragrafo = bodyElement
+          .getElementsByTagName('p')
+          .map((p) => p.text.trim())
+          .join('\n');
 
       final urlElement = element.querySelector('.views-field-view-node a');
       final url = urlElement?.attributes['href'];
 
       news.add({
-        'titolo':title,
-        'immagine':imageUrl,
-        'data':date,
-        'paragrafo':paragrafo,
-        'url':url
+        'titolo': title,
+        'immagine': imageUrl,
+        'data': date,
+        'paragrafo': paragrafo,
+        'url': url
       });
     }
 
@@ -65,12 +69,8 @@ class _NewsState extends State<News> {
     });
   }
 
-  Future<void> _launcherUri(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      print("cant\'t launch url");
-    }
+  Future<void> _launcherUri(url) async {
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
 
   @override
@@ -78,7 +78,6 @@ class _NewsState extends State<News> {
     return Scaffold(
       appBar: AppBar(
         title: Text("News"),
-        
       ),
       body: ListView.builder(
         itemCount: notizie.length,
@@ -114,22 +113,20 @@ class _NewsState extends State<News> {
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),
-            
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 4.0),
                       child: Text(
-                        "Pubblicata il ${notizia.pubblicazione} \n${notizia.paragrafo}" ,
+                        "Pubblicata il ${notizia.pubblicazione} \n${notizia.paragrafo}",
                         style: TextStyle(
                           fontSize: 16.0,
                         ),
                       ),
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 10 / 100
-                    ),
+                        height: MediaQuery.of(context).size.height * 10 / 100),
                   ],
                 ),
               ),
@@ -139,11 +136,9 @@ class _NewsState extends State<News> {
       ),
     );
   }
-  
 }
 
-
-class Notizia{
+class Notizia {
   final String titolo;
   final String sito;
   final String pubblicazione;
@@ -153,6 +148,7 @@ class Notizia{
     required this.titolo,
     required this.sito,
     required this.pubblicazione,
-    required this.paragrafo, required immagini,
+    required this.paragrafo,
+    required immagini,
   });
 }
