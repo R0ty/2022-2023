@@ -1,7 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages, use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zucc_app/main.dart';
 
 class News extends StatefulWidget {
   @override
@@ -77,61 +80,59 @@ class _NewsState extends State<News> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("News"),
+        centerTitle: true,
+        title: Text(
+          "News",
+          style: TextStyle(
+              color: Colors.blue.shade400,
+              fontSize: 30,
+              fontWeight: FontWeight.w200),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MyApp()),
+            );
+          },
+          icon: Icon(Icons.arrow_back_ios),
+          color: Colors.blue.shade400,
+        ),
       ),
       body: ListView.builder(
         itemCount: _news.length,
         itemBuilder: (context, index) {
           final notizia = _news[index];
-          return GestureDetector(
+          return Card(
+              child: ListTile(
+            tileColor: Colors.blue.shade200,
             onTap: () {
               _launcherUri('https://www.itiszuccante.edu.it/${notizia.sito}');
             },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        notizia.titolo,
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        "Pubblicata il ${notizia.pubblicazione} \n${notizia.paragrafo}",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ),
-                    Container(
-                        height: MediaQuery.of(context).size.height * 10 / 100),
-                  ],
-                ),
-              ),
+            title: Text(
+              notizia.titolo,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white),
             ),
-          );
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Pubblicato in data: ${notizia.pubblicazione}',
+                  style: TextStyle(fontSize: 12),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  notizia.paragrafo,
+                  style: TextStyle(fontSize: 12),
+                )
+              ],
+            ),
+          ));
         },
       ),
     );

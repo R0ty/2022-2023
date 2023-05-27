@@ -1,15 +1,17 @@
+// ignore_for_file: depend_on_referenced_packages, use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zucc_app/main.dart';
 
-class NoticeBoard extends StatefulWidget {
+class Circolari extends StatefulWidget {
   @override
-  _NoticeBoardState createState() => _NoticeBoardState();
+  _CircolariState createState() => _CircolariState();
 }
 
-class _NoticeBoardState extends State<NoticeBoard> {
+class _CircolariState extends State<Circolari> {
   List<Circolare> circolari = [];
   List<Circolare> preferiti = [];
 
@@ -119,10 +121,9 @@ class _NoticeBoardState extends State<NoticeBoard> {
               trailing: IconButton(
                 icon: Icon(
                   Icons.download,
-                  color: Colors.pink.shade200,
+                  color: Colors.pink.shade400,
                 ),
                 onPressed: () {
-                  print(circolare.documenti);
                   _launcherUri(
                       'https://web.spaggiari.eu/sdg/app/default/view_documento.php?a=akVIEW_FROM_ID&id_documento=${circolare.documenti}&sede_codice=VEIT0007');
                 },
@@ -152,7 +153,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
                     'Valido fino al: ${circolare.validoFino}',
                     style: TextStyle(fontSize: 12),
                   ),
-                  SizedBox(height: 1 /* */),
+                  SizedBox(height: 1),
                   if (circolare.allegati.isNotEmpty)
                     ListView.builder(
                       shrinkWrap: true,

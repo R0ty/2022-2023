@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: InkWell(
                             onTap: () => Navigator.of(context).push(
                                 MaterialPageRoute(
-                                    builder: (context) => NoticeBoard())),
+                                    builder: (context) => Circolari())),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
